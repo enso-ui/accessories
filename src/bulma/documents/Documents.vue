@@ -82,10 +82,6 @@ export default {
             type: Boolean,
             default: false,
         },
-        controls: {
-            type: Boolean,
-            default: false,
-        },
     },
 
     data: () => ({

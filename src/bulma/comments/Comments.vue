@@ -86,10 +86,6 @@ export default {
             type: String,
             default: null,
         },
-        controls: {
-            type: Boolean,
-            default: false,
-        },
     },
 
     data: v => ({
