@@ -1,7 +1,6 @@
 <template>
     <div class="wrapper">
-        <div v-if="controls"
-            class="controls">
+        <div class="controls">
             <slot name="controls"
                 :is-mobile="isMobile"
                 :create="create"
@@ -41,7 +40,7 @@
                 </p>
             </slot>
         </div>
-        <div :class="{'has-margin-top-large': controls}">
+        <div class="has-margin-top-large">
             <comment v-if="comment"
                 :id="id"
                 is-new

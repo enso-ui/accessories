@@ -1,7 +1,6 @@
 <template>
     <div class="wrapper">
-        <div v-if="controls"
-            class="controls">
+        <div class="controls">
             <slot :id="id"
                 name="controls"
                 :is-mobile="isMobile"
@@ -38,10 +37,8 @@
                 </p>
             </slot>
         </div>
-        <div :class="[
-                {'columns is-mobile is-multiline': !compact},
-                {'has-margin-top-large': controls}
-            ]">
+        <div class="has-margin-top-large"
+            :class="{'columns is-mobile is-multiline': !compact}">
             <div v-for="(doc, index) in filteredDocuments"
                 :key="doc.id"
                 :class="{ 'column is-half-mobile is-one-third-desktop': !compact }">

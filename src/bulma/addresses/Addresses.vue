@@ -34,8 +34,7 @@
                 </span>
             </p>
         </div>
-        <div class="columns is-multiline"
-            :class="{'has-margin-top-large': controls}">
+        <div class="columns is-multiline has-margin-top-large">
             <div class="column is-half-tablet is-one-third-widescreen"
                 v-for="(address, index) in filteredAddresses"
                 :key="index">
