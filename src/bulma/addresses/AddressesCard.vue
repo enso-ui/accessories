@@ -1,0 +1,95 @@
+<template>
+    <card :collapsed="collapsed">
+        <card-header class="has-background-light">
+            <template v-slot:title>
+                <span class="icon is-small has-margin-right-small">
+                    <fa :icon="icon"/>
+                </span>
+                {{ displayTitle }}
+            </template>
+            <template v-slot:controls>
+                <card-refresh @refresh="fetch"/>
+                <card-badge :label="count"/>
+                <card-collapse/>
+            </template>
+        </card-header>
+        <card-content class="is-paddingless">
+            <addresses :id="id"
+                :type="type"
+                :query="query"
+                @update="count = $refs.addresses.count; $refs.card.resize()"
+                ref="addresses"/>
+        </card-content>
+    </card>
+</template>
+
+<script>
+import {
+    Card, CardHeader, CardRefresh, CardCollapse, CardBadge, CardContent,
+} from '@enso-ui/card/bulma';
+import { mapState } from 'vuex';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faMapSigns, faPlusSquare } from '@fortawesome/free-solid-svg-icons';
+import Addresses from './Addresses.vue';
+
+library.add(faMapSigns, faPlusSquare);
+
+export default {
+    components: {
+        Card, CardHeader, CardRefresh, CardCollapse, CardBadge, CardContent, Addresses,
+    },
+
+    props: {
+        icon: {
+            type: [String, Array, Object],
+            default: () => faMapSigns,
+        },
+        id: {
+            type: Number,
+            required: true,
+        },
+        type: {
+            type: String,
+            required: true,
+        },
+        collapsed: {
+            type: Boolean,
+            default: false,
+        },
+        title: {
+            type: String,
+            default: null,
+        },
+    },
+
+    data: () => ({
+        query: '',
+        count: 0,
+    }),
+
+    computed: {
+        ...mapState('layout', ['isMobile']),
+        displayTitle() {
+            return !this.isMobile
+                ? this.title || this.__('Addresses')
+                : null;
+        },
+        isEmpty() {
+            return this.count === 0;
+        },
+    },
+
+    watch: {
+        count() {
+            this.$refs.card.resize();
+        },
+    },
+};
+</script>
+
+<style scoped>
+      .wrapper {
+        max-height: 430px;
+        overflow-y: auto;
+    }
+</style>
