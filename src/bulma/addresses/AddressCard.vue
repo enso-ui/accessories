@@ -74,25 +74,25 @@
         </div>
         <div class="has-text-centered has-margin-top-medium">
             <div class="details">
-                <button class="button is-naked"
+                <a class="button is-naked"
                     @click="$emit('edit')">
                     <span class="icon">
                         <fa icon="pencil-alt"/>
                     </span>
-                </button>
-                <button class="button is-naked"
+                </a>
+                <a class="button is-naked"
                     @click="$emit('set-default')">
                     <span class="icon">
                         <fa icon="anchor"/>
                     </span>
-                </button>
+                </a>
                 <confirmation placement="top"
                     @confirm="$emit('delete')">
-                    <button class="button is-naked">
+                    <a class="button is-naked">
                         <span class="icon">
                             <fa icon="trash-alt"/>
                         </span>
-                    </button>
+                    </a>
                 </confirmation>
             </div>
         </div>
@@ -105,7 +105,7 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import {
     faPencilAlt, faAnchor, faGlobe, faStickyNote, faTrashAlt,
 } from '@fortawesome/free-solid-svg-icons';
-import Confirmation from '@enso-ui/confirmation';
+import Confirmation from '@enso-ui/confirmation/bulma';
 
 library.add(faPencilAlt, faAnchor, faGlobe, faStickyNote, faTrashAlt);
 

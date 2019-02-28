@@ -85,7 +85,7 @@ import {
     faFile, faEye, faCloudDownloadAlt, faTrashAlt, faLink,
     faInfoCircle, faUser, faCalendarAlt, faDatabase,
 } from '@fortawesome/free-solid-svg-icons';
-import { Confirmation } from '@enso-ui/bulma';
+import Confirmation from '@enso-ui/confirmation/bulma';
 import formatDistance from '@core-modules/plugins/date-fns/formatDistance';
 import Url from '@core-pages/files/components/Url.vue';
 

@@ -58,7 +58,7 @@
 
 <script>
 
-import { Confirmation } from '@enso-ui/bulma';
+import Confirmation from '@enso-ui/confirmation/bulma';
 import formatDistance from '@core-modules/plugins/date-fns/formatDistance';
 import Inputor from './Inputor.vue';
 
