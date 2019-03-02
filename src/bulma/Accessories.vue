@@ -19,6 +19,14 @@ import { EnsoTabs as Tabs } from '@enso-ui/tabs/bulma';
 export default {
     name: 'Accessories',
 
+    provides: () => ({
+        accessoriesState: {
+            count: {},
+        },
+    }),
+
+    name: 'Accessories',
+
     components: { Tabs },
 
     data: () => ({

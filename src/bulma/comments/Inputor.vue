@@ -44,14 +44,12 @@
 import { mapState } from 'vuex';
 import debounce from 'lodash/debounce';
 import getCaretCoordinates from 'textarea-caret';
-import vClickOutside from 'v-click-outside';
+import { focus, clickOutside } from '@enso-ui/directives';
 
 export default {
     name: 'Inputor',
 
-    directives: {
-        clickOutside: vClickOutside.directive,
-    },
+    directives: { focus, clickOutside },
 
     props: {
         comment: {
