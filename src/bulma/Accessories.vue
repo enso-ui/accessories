@@ -5,7 +5,7 @@
                 {{ __(tab) }}
             </span>
             <span class="tag is-dark counter">
-                {{ count[tab.toLowerCase()] }}
+                {{ count[tab] }}
             </span>
         </template>
         <slot :count="count"/>
@@ -17,14 +17,6 @@
 import { EnsoTabs as Tabs } from '@enso-ui/tabs/bulma';
 
 export default {
-    name: 'Accessories',
-
-    provides: () => ({
-        accessoriesState: {
-            count: {},
-        },
-    }),
-
     name: 'Accessories',
 
     components: { Tabs },
