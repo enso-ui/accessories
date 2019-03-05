@@ -1,22 +1,44 @@
 # Accessories
 
-[![License](https://poser.pugx.org/laravel-enso/accessories/license)](https://packagist.org/packages/laravel-enso/accessories)
-[![Latest Stable Version](https://poser.pugx.org/laravel-enso/accessories/version)](https://packagist.org/packages/laravel-enso/accessories)
+![npm license](https://img.shields.io/npm/l/@enso-ui/accessories.svg) 
+![npm download](https://img.shields.io/npm/dm/@enso-ui/accessories.svg) 
+![GitHub top language](https://img.shields.io/github/languages/top/enso-ui/accessories.svg) 
+![GitHub issues](https://img.shields.io/github/issues/enso-ui/accessories.svg) 
+![npm version](https://img.shields.io/npm/v/@enso-ui/accessories.svg) 
 
 Accessories
 
-### Features
+## Usage
+This package contains a suite of reusable components within the Enso ecosystem.
 
-- soon
+### Demo
 
-### Configuration & Usage
+For live examples and demos, you may visit [laravel-enso.com](https://www.laravel-enso.com)
 
-- soon
+### Installation
 
-### Contributions
+Install the package:
+```
+npm i @enso-ui/accessories
+```
+Import the desired component(s):
+```js
+import {
+    Accessories, Addresses, Comments, Discussions, Documents,
+} from '@enso-ui/accessories/bulma';
+```
+
+### Exports
+
+`@enso-ui/accessories/bulma`:
+- `Accessories`, 
+
+## Contributions
 
 are welcome. Pull requests are great, but issues are good too.
 
-### License
+Thank you to all the people who already contributed to Enso!
 
-This package is released under the MIT license.
+## License
+
+[ISC](https://opensource.org/licenses/ISC)
