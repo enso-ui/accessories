@@ -23,7 +23,7 @@
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faLocationArrow } from '@fortawesome/free-solid-svg-icons';
 import { Modal } from '@enso-ui/modal/bulma';
-import EnsoForm from '@enso-ui/forms/bulma';
+import { EnsoForm } from '@enso-ui/forms/bulma';
 
 library.add(faLocationArrow);
 
