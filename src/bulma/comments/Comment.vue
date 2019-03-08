@@ -17,7 +17,7 @@
                     {{ timeFromNow(comment.updatedAt || comment.createdAt) }}
                 </span>
                 <span v-if="comment.createdAt !== comment.updatedAt">
-                    &bull; {{ __('edited') }}
+                    &bull; {{ i18n('edited') }}
                 </span>
                 <div v-if="!isNew && !isEditing && controls"
                     class="is-pulled-right is-flex">
@@ -52,23 +52,23 @@
                     <a class="button is-small is-outlined has-margin-right-small action"
                         @click="isNew ? $emit('cancel-add') : cancelAdd()">
                         <span>
-                            {{ __('Cancel') }}
+                            {{ i18n('Cancel') }}
                         </span>
                         <span class="icon is-small">
                             <fa icon="ban"/>
                         </span>
                     </a>
                     <a v-tooltip.right="{
-                                content: __('Shift + Enter to post'),
+                                content: i18n('Shift + Enter to post'),
                                 delay: 800
                             }"
                         class="button is-small is-outlined is-success action"
                         @click="isNew ? $emit('save') : update()">
                         <span v-if="isNew">
-                            {{ __('Post') }}
+                            {{ i18n('Post') }}
                         </span>
                         <span v-else>
-                            {{ __('Update') }}
+                            {{ i18n('Update') }}
                         </span>
                         <span class="icon is-small">
                             <fa icon="check"/>
@@ -94,6 +94,10 @@ import Inputor from './Inputor.vue';
 library.add(faPencilAlt, faTrashAlt, faCheck, faBan);
 
 export default {
+    name: 'Comment',
+
+    inject: ['i18n'],
+
     components: { Inputor, Confirmation },
 
     directives: { tooltip: VTooltip },

@@ -9,7 +9,7 @@
                 <a class="button"
                     @click="create()">
                     <span v-if="!isMobile">
-                        {{ __('Add Comment') }}
+                        {{ i18n('Add Comment') }}
                     </span>
                     <span class="icon">
                         <fa icon="plus"/>
@@ -18,7 +18,7 @@
                 <a class="button has-margin-left-small"
                     @click="fetch()">
                     <span v-if="!isMobile">
-                        {{ __('Reload') }}
+                        {{ i18n('Reload') }}
                     </span>
                     <span class="icon">
                         <fa icon="sync"/>
@@ -28,7 +28,7 @@
                     <input v-model="internalQuery"
                         class="input is-rounded"
                         type="text"
-                        :placeholder="__('Filter')">
+                        :placeholder="i18n('Filter')">
                     <span class="icon is-small is-left">
                         <fa icon="search"/>
                     </span>
@@ -70,6 +70,8 @@ library.add(faPlus, faSync, faSearch);
 
 export default {
     name: 'Comments',
+
+    inject: ['errorHandler', 'i18n'],
 
     components: { Comment },
 
@@ -139,7 +141,7 @@ export default {
                 this.comments = data;
                 this.loading = false;
                 this.$emit('update');
-            }).catch(error => this.handleError(error));
+            }).catch(this.errorHandler);
         },
 
         factory() {
@@ -174,7 +176,7 @@ export default {
                 this.comment = null;
                 this.$emit('update');
                 this.loading = false;
-            }).catch(error => this.handleError(error));
+            }).catch(this.errorHandler);
         },
         postParams() {
             return {
@@ -195,7 +197,7 @@ export default {
             ).then(({ data }) => {
                 Object.assign(comment, data);
                 this.loading = false;
-            }).catch(error => this.handleError(error));
+            }).catch(this.errorHandler);
         },
         syncTaggedUsers(comment) {
             comment.taggedUsers.forEach((user, index) => {
@@ -212,7 +214,7 @@ export default {
                     this.comments.splice(index, 1);
                     this.$emit('update');
                     this.loading = false;
-                }).catch(error => this.handleError(error));
+                }).catch(this.errorHandler);
         },
     },
 };

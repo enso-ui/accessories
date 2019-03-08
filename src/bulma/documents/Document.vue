@@ -95,6 +95,10 @@ library.add([
 ]);
 
 export default {
+    name: 'Documents',
+
+    inject: ['canAccess', 'errorHandler'],
+
     components: { VPopover, Confirmation, Url },
 
     props: {
@@ -121,7 +125,7 @@ export default {
         link() {
             axios.get(route('core.files.link', this.file.id))
                 .then(({ data }) => (this.temporaryLink = data.link))
-                .catch(error => this.handleError(error));
+                .catch(this.errorHandler);
         },
         show() {
             window.open(this.openLink, '_blank').focus();

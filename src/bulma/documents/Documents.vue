@@ -15,7 +15,7 @@
                 <a class="button has-margin-left-small"
                     @click="fetch()">
                     <span v-if="!isMobile">
-                        {{ __('Reload') }}
+                        {{ i18n('Reload') }}
                     </span>
                     <span class="icon">
                         <fa icon="sync"/>
@@ -25,7 +25,7 @@
                     <input v-model="internalQuery"
                         class="input is-rounded"
                         type="text"
-                        :placeholder="__('Filter')">
+                        :placeholder="i18n('Filter')">
                     <span class="icon is-small is-left">
                         <fa icon="search"/>
                     </span>
@@ -62,6 +62,8 @@ library.add(faPlus, faSync, faSearch);
 
 export default {
     name: 'Documents',
+
+    inject: ['errorHandler', 'i18n'],
 
     components: { Document, File, Uploader },
 
@@ -132,7 +134,7 @@ export default {
                 this.documents = data;
                 this.loading = false;
                 this.$emit('update');
-            }).catch(error => this.handleError(error));
+            }).catch(this.errorHandler);
         },
         destroy(index) {
             this.loading = true;
@@ -144,7 +146,7 @@ export default {
                 this.loading = false;
                 this.documents.splice(index, 1);
                 this.$emit('update');
-            }).catch(error => this.handleError(error));
+            }).catch(this.errorHandler);
         },
     },
 };

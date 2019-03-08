@@ -33,7 +33,7 @@
                 <textarea v-model="comment.body"
                     v-focus
                     class="textarea vue-comment"
-                    :placeholder="__('Type a new comment')"
+                    :placeholder="i18n('Type a new comment')"
                     @keyup.shift.enter="$emit('save')"/>
             </p>
         </div>
@@ -48,6 +48,8 @@ import { focus, clickOutside } from '@enso-ui/directives';
 
 export default {
     name: 'Inputor',
+
+    inject: ['errorHandler', 'i18n'],
 
     directives: { focus, clickOutside },
 
@@ -100,7 +102,7 @@ export default {
                 if (this.items.length) {
                     this.position = 0;
                 }
-            }).catch(error => this.handleError(error));
+            }).catch(this.errorHandler);
         },
         filter(event) {
             const arg = this.comment.body

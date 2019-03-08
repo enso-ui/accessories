@@ -27,7 +27,7 @@
                 <span v-if="edited">
                     &bull;
                     <small class="has-text-muted">
-                        {{ __('edited') }}
+                        {{ i18n('edited') }}
                     </small>
                 </span>
                 <br>
@@ -64,6 +64,8 @@ import Inputor from './Inputor.vue';
 
 export default {
     name: 'Reply',
+
+    inject: ['i18n'],
 
     components: { Inputor, Confirmation },
 

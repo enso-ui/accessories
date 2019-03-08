@@ -35,6 +35,10 @@ import Addresses from './Addresses.vue';
 library.add(faMapSigns, faPlusSquare);
 
 export default {
+    name: 'AddressesCard',
+
+    inject: ['i18n'],
+
     components: {
         Card, CardHeader, CardRefresh, CardCollapse, CardBadge, CardContent, Addresses,
     },
@@ -71,7 +75,7 @@ export default {
         ...mapState('layout', ['isMobile']),
         displayTitle() {
             return !this.isMobile
-                ? this.title || this.__('Addresses')
+                ? this.title || this.i18n('Addresses')
                 : null;
         },
         isEmpty() {

@@ -2,7 +2,7 @@
     <tabs>
         <template v-slot:label="{ tab }">
             <span>
-                {{ __(tab) }}
+                {{ i18n(tab) }}
             </span>
             <span class="tag is-dark counter">
                 {{ count[tab] }}
@@ -18,6 +18,8 @@ import { EnsoTabs as Tabs } from '@enso-ui/tabs/bulma';
 
 export default {
     name: 'Accessories',
+
+    inject: ['i18n'],
 
     components: { Tabs },
 

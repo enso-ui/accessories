@@ -35,6 +35,10 @@ import Comments from './Comments.vue';
 library.add(faComments, faPlusSquare);
 
 export default {
+    name: 'CommentsCard',
+
+    inject: ['i18n'],
+
     components: {
         Card, CardHeader, CardRefresh, CardCollapse, CardBadge, CardContent, Comments,
     },
@@ -71,7 +75,7 @@ export default {
         ...mapState('layout', ['isMobile']),
         displayTitle() {
             return !this.isMobile
-                ? this.title || this.__('Comments')
+                ? this.title || this.i18n('Comments')
                 : null;
         },
         isEmpty() {

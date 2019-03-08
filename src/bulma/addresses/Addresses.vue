@@ -4,7 +4,7 @@
             <button class="button"
                 @click="create()">
                 <span v-if="!isMobile">
-                    {{ __('New Address') }}
+                    {{ i18n('New Address') }}
                 </span>
                 <span class="icon">
                     <fa icon="plus"/>
@@ -13,7 +13,7 @@
             <button class="button has-margin-left-small"
                 @click="fetch()">
                 <span v-if="!isMobile">
-                    {{ __('Reload') }}
+                    {{ i18n('Reload') }}
                 </span>
                 <span class="icon">
                     <fa icon="sync"/>
@@ -23,7 +23,7 @@
                 <input class="input is-rounded"
                     type="text"
                     v-model="internalQuery"
-                    :placeholder="__('Filter')">
+                    :placeholder="i18n('Filter')">
                 <span class="icon is-small is-left">
                     <fa icon="search"/>
                 </span>
@@ -78,6 +78,8 @@ library.add(faPlus, faSync, faSearch);
 
 export default {
     components: { AddressCard, AddressForm },
+
+    inject: ['errorHandler', 'i18n'],
 
     props: {
         id: {
@@ -144,7 +146,7 @@ export default {
                     this.addresses = data;
                     this.$emit('update');
                     this.loading = false;
-                }).catch(error => this.handleError(error));
+                }).catch(this.errorHandler);
         },
         edit(address) {
             this.path = route('core.addresses.edit', address.id);
@@ -157,7 +159,7 @@ export default {
 
             axios.patch(route('core.addresses.setDefault', address.id))
                 .then(() => this.fetch())
-                .catch(error => this.handleError(error));
+                .catch(this.errorHandler);
         },
         destroy(address, index) {
             this.loading = true;
@@ -167,7 +169,7 @@ export default {
                     this.addresses.splice(index, 1);
                     this.$emit('update');
                     this.loading = false;
-                }).catch(error => this.handleError(error));
+                }).catch(this.errorHandler);
         },
         setFields() {
             this.$refs.form.field('addressable_type').value = this.type;

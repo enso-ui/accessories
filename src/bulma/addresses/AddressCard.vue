@@ -3,7 +3,7 @@
         <div class="media">
             <div class="media-content">
                 <span class="icon is-pulled-right has-text-success"
-                    v-tooltip="__('default')"
+                    v-tooltip="i18n('default')"
                     v-if="address.isDefault">
                     <fa icon="anchor"/>
                 </span>
@@ -15,30 +15,30 @@
                         {{ address.street }}
                     </strong>
                     <strong v-if="address.streetType">
-                        {{ __(address.streetType) }},
+                        {{ i18n(address.streetType) }},
                     </strong>
                     <br>
                     <strong v-if="address.building">
                         <span class="has-text-grey">
-                            {{ __(address.buildingType) }}
+                            {{ i18n(address.buildingType) }}
                         </span>
                         {{ address.building }},
                     </strong>
                     <strong v-if="address.entry">
                         <span class="has-text-grey">
-                            {{ __('Entry') }}
+                            {{ i18n('Entry') }}
                         </span>
                         {{ address.entry }},
                     </strong>
                     <strong v-if="address.floor">
                         <span class="has-text-grey">
-                            {{ __('Floor') }}
+                            {{ i18n('Floor') }}
                         </span>
                         {{ address.floor }},
                     </strong>
                     <strong v-if="address.apartment">
                         <span class="has-text-grey">
-                            {{ __('Apartment') }}
+                            {{ i18n('Apartment') }}
                         </span>
                         {{ address.apartment }},
                     </strong>
@@ -110,6 +110,10 @@ import Confirmation from '@enso-ui/confirmation/bulma';
 library.add(faPencilAlt, faAnchor, faGlobe, faStickyNote, faTrashAlt);
 
 export default {
+    name: 'AddressCard',
+
+    inject: ['i18n'],
+
     components: { Confirmation },
 
     directives: { tooltip: VTooltip },

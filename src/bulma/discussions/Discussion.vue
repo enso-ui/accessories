@@ -23,7 +23,7 @@
                         <span v-if="edited">
                             &bull;
                             <small class="has-text-muted">
-                                {{ __('edited') }}
+                                {{ i18n('edited') }}
                             </small>
                         </span>
                     </div>
@@ -32,7 +32,7 @@
                     <button class="button"
                         @click="$emit('back')">
                         <span>
-                            {{ __('Back') }}
+                            {{ i18n('Back') }}
                         </span>
                         <span class="icon is-small">
                             <fa icon="arrow-left"/>
@@ -71,7 +71,7 @@
                 {{ discussion.replies.length }}
             </span>
             <span class="has-margin-left-medium">
-                {{ __('Replies') }}
+                {{ i18n('Replies') }}
             </span>
         </h5>
         <reply v-for="(reply, index) in discussion.replies"
@@ -87,7 +87,7 @@
             @click="reply = replyFactory()"
             v-else>
             <span>
-                {{ __('Reply') }}
+                {{ i18n('Reply') }}
             </span>
             <span class="icon is-small">
                 <fa icon="plus"/>
@@ -108,6 +108,10 @@ import Reactions from './Reactions.vue';
 library.add(faArrowLeft, faTrashAlt, faPencilAlt);
 
 export default {
+    name: 'Discussion',
+
+    inject: ['i18n'],
+
     components: { Reply, Reactions, Confirmation },
 
     props: {

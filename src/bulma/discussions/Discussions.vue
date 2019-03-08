@@ -23,7 +23,7 @@
                 <button class="button"
                     @click="discussion = factory(); inputor = true;">
                     <span v-if="!isMobile">
-                        {{ __('New Topic') }}
+                        {{ i18n('New Topic') }}
                     </span>
                     <span class="icon is-small">
                         <fa icon="plus"/>
@@ -32,7 +32,7 @@
                 <button class="button has-margin-left-small"
                     @click="fetch()">
                     <span v-if="!isMobile">
-                        {{ __('Reload') }}
+                        {{ i18n('Reload') }}
                     </span>
                     <span class="icon is-small">
                         <fa icon="sync"/>
@@ -71,6 +71,8 @@ library.add(faPlus, faSearch, faSync);
 
 export default {
     components: { Discussion, DiscussionPreview, Inputor },
+
+    inject: ['errorHandler', 'i18n'],
 
     props: {
         id: {
@@ -123,7 +125,7 @@ export default {
                 this.discussions = data;
                 this.$emit('update');
                 this.loading = false;
-            }).catch(error => this.handleError(error));
+            }).catch(this.errorHandler);
         },
         store() {
             axios.post(route('core.discussions.store'), this.discussion)
@@ -132,7 +134,7 @@ export default {
                     this.discussions.unshift(this.discussion);
                     this.$emit('update');
                     this.inputor = false;
-                }).catch(error => this.handleError(error));
+                }).catch(this.errorHandler);
         },
         update() {
             axios.patch(
@@ -140,7 +142,7 @@ export default {
                 this.discussion,
             )
                 .then(() => (this.inputor = false))
-                .catch(error => this.handleError(error));
+                .catch(this.errorHandler);
         },
         destroy() {
             axios.delete(route('core.discussions.destroy', this.discussion.id))
@@ -150,7 +152,7 @@ export default {
                     this.$emit('update');
                     this.discussion = null;
                     this.fetch();
-                }).catch(error => this.handleError(error));
+                }).catch(this.errorHandler);
         },
         factory() {
             return {

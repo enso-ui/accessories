@@ -20,6 +20,8 @@ import { VTooltip } from 'v-tooltip';
 export default {
     name: 'Reactions',
 
+    inject: ['errorHandler'],
+
     directives: { tooltip: VTooltip },
 
     props: {
@@ -45,7 +47,7 @@ export default {
                 userId: this.user.id,
                 type: 1,
             }).then(({ data }) => (this.reactable.reactions = data))
-                .catch(error => this.handleError(error));
+                .catch(this.errorHandler);
         },
         avatar(avatarId) {
             return route('core.avatars.show', avatarId);

@@ -2,7 +2,7 @@
     <div class="box has-background-light">
         <input class="input control is-large message-title"
             v-model="message.title"
-            :placeholder="__('Title...')"
+            :placeholder="i18n('Title...')"
             v-if="title">
         <quill-editor :options="options"
             ref="quillEditor"
@@ -18,7 +18,7 @@
         </form>
         <button class="button"
             @click="$emit('cancel')">
-            <span>{{ __('Cancel') }}</span>
+            <span>{{ i18n('Cancel') }}</span>
             <span class="icon is-small">
                 <fa icon="ban"/>
             </span>
@@ -27,10 +27,10 @@
             @click="save"
             v-if="filled">
             <span v-if="message.id">
-                {{ __('Update') }}
+                {{ i18n('Update') }}
             </span>
             <span v-else>
-                {{ __('Post') }}
+                {{ i18n('Post') }}
             </span>
             <span class="icon is-small">
                 <fa icon="check"/>
@@ -55,6 +55,10 @@ import './mention/mention.scss';
 library.add(faCheck, faBan);
 
 export default {
+    name: 'Inputor',
+
+    inject: ['errorHandler', 'i18n'],
+
     components: { quillEditor },
 
     props: {
@@ -83,7 +87,7 @@ export default {
         tagged: [],
         options: {
             theme: 'snow',
-            placeholder: v.__(v.placeholder),
+            placeholder: v.i18n(v.placeholder),
             modules: {
                 toolbar: [
                     ['bold', 'italic', 'strike'],
@@ -151,7 +155,7 @@ export default {
                     );
 
                     this.$refs.inputForm.reset();
-                }).catch(error => this.handleError(error));
+                }).catch(this.errorHandler);
         },
         avatar(avatarId) {
             return route('core.avatars.show', avatarId);

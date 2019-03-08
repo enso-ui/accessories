@@ -35,6 +35,10 @@ import Documents from './Documents.vue';
 library.add(faCopy, faPlusSquare);
 
 export default {
+    name: 'DocumentsCard',
+
+    inject: ['i18n'],
+
     components: {
         Card, CardHeader, CardRefresh, CardCollapse, CardBadge, CardContent, Documents,
     },
@@ -77,7 +81,7 @@ export default {
         },
         displayTitle() {
             return !this.isMobile
-                ? this.title || this.__('Documents')
+                ? this.title || this.i18n('Documents')
                 : null;
         },
     },
