@@ -36,6 +36,8 @@
 import formatDistance from '@core-modules/plugins/date-fns/formatDistance';
 
 export default {
+    name: 'DiscussionPreview',
+
     filters: {
         string(html) {
             const div = document.createElement('div');

@@ -35,6 +35,8 @@ import Addresses from './Addresses.vue';
 library.add(faMapSigns, faPlusSquare);
 
 export default {
+    name: 'AddressesCard',
+
     components: {
         Card, CardHeader, CardRefresh, CardCollapse, CardBadge, CardContent, Addresses,
     },

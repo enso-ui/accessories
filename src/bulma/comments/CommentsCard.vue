@@ -35,6 +35,8 @@ import Comments from './Comments.vue';
 library.add(faComments, faPlusSquare);
 
 export default {
+    name: 'CommentsCard',
+
     components: {
         Card, CardHeader, CardRefresh, CardCollapse, CardBadge, CardContent, Comments,
     },

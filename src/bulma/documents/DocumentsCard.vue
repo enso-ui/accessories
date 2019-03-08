@@ -35,6 +35,8 @@ import Documents from './Documents.vue';
 library.add(faCopy, faPlusSquare);
 
 export default {
+    name: 'DocumentsCard',
+
     components: {
         Card, CardHeader, CardRefresh, CardCollapse, CardBadge, CardContent, Documents,
     },

@@ -108,6 +108,8 @@ import Reactions from './Reactions.vue';
 library.add(faArrowLeft, faTrashAlt, faPencilAlt);
 
 export default {
+    name: 'Discussion',
+
     components: { Reply, Reactions, Confirmation },
 
     props: {

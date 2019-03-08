@@ -110,6 +110,8 @@ import Confirmation from '@enso-ui/confirmation/bulma';
 library.add(faPencilAlt, faAnchor, faGlobe, faStickyNote, faTrashAlt);
 
 export default {
+    name: 'AddressCard',
+
     components: { Confirmation },
 
     directives: { tooltip: VTooltip },

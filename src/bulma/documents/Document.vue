@@ -95,6 +95,8 @@ library.add([
 ]);
 
 export default {
+    name: 'Document',
+
     components: { VPopover, Confirmation, Url },
 
     props: {

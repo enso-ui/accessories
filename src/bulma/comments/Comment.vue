@@ -94,6 +94,8 @@ import Inputor from './Inputor.vue';
 library.add(faPencilAlt, faTrashAlt, faCheck, faBan);
 
 export default {
+    name: 'Comment',
+
     components: { Inputor, Confirmation },
 
     directives: { tooltip: VTooltip },
