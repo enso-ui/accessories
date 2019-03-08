@@ -77,6 +77,8 @@ import AddressForm from './AddressForm.vue';
 library.add(faPlus, faSync, faSearch);
 
 export default {
+    name: 'Addresses',
+
     components: { AddressCard, AddressForm },
 
     inject: ['errorHandler', 'i18n'],

@@ -70,6 +70,8 @@ import Inputor from './Inputor.vue';
 library.add(faPlus, faSearch, faSync);
 
 export default {
+    name: 'Discussions',
+
     components: { Discussion, DiscussionPreview, Inputor },
 
     inject: ['errorHandler', 'i18n'],
