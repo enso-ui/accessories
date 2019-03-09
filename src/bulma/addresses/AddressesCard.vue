@@ -37,11 +37,11 @@ library.add(faMapSigns, faPlusSquare);
 export default {
     name: 'AddressesCard',
 
-    inject: ['i18n'],
-
     components: {
         Card, CardHeader, CardRefresh, CardCollapse, CardBadge, CardContent, Addresses,
     },
+
+    inject: ['i18n'],
 
     props: {
         icon: {
@@ -90,10 +90,3 @@ export default {
     },
 };
 </script>
-
-<style scoped>
-      .wrapper {
-        max-height: 430px;
-        overflow-y: auto;
-    }
-</style>

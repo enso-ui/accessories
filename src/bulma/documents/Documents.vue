@@ -1,5 +1,5 @@
 <template>
-    <div class="wrapper">
+    <div class="documents-wrapper">
         <div class="controls">
             <slot :id="id"
                 name="controls"
@@ -63,9 +63,9 @@ library.add(faPlus, faSync, faSearch);
 export default {
     name: 'Documents',
 
-    inject: ['errorHandler', 'i18n'],
-
     components: { Document, File, Uploader },
+
+    inject: ['errorHandler', 'i18n'],
 
     props: {
         id: {
@@ -153,8 +153,8 @@ export default {
 </script>
 
 
-<style lang="scss" scoped>
-    .controls {
+<style lang="scss">
+    .documents-wrapper .controls {
         display: flex;
         justify-content: center;
     }

@@ -74,8 +74,8 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-    p.preview {
+<style lang="scss">
+    .media .preview {
         overflow: hidden;
         text-overflow: ellipsis;
         max-height: 3rem;

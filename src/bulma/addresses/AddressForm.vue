@@ -1,7 +1,7 @@
 <template>
     <modal show
-        v-on="$listeners"
-        portal="address-form">
+        portal="address-form"
+        v-on="$listeners">
         <enso-form class="box has-background-light"
             v-bind="$attrs"
             v-on="$listeners"
@@ -18,7 +18,6 @@
 </template>
 
 <script>
-
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faLocationArrow } from '@fortawesome/free-solid-svg-icons';
 import { Modal } from '@enso-ui/modal/bulma';
@@ -58,13 +57,10 @@ export default {
 };
 
 </script>
-
 <style lang="scss">
-
     .address-form {
         .modal-content {
             width: 70%;
         }
     }
-
 </style>

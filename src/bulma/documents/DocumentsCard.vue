@@ -37,11 +37,11 @@ library.add(faCopy, faPlusSquare);
 export default {
     name: 'DocumentsCard',
 
-    inject: ['i18n'],
-
     components: {
         Card, CardHeader, CardRefresh, CardCollapse, CardBadge, CardContent, Documents,
     },
+
+    inject: ['i18n'],
 
     props: {
         icon: {
@@ -93,10 +93,3 @@ export default {
     },
 };
 </script>
-
-<style scoped>
-    .wrapper {
-        max-height: 500px;
-        overflow-y: auto;
-    }
-</style>

@@ -1,5 +1,5 @@
 <template>
-    <div class="wrapper">
+    <div class="addresses-wrapper">
         <div class="controls">
             <button class="button"
                 @click="create()">
@@ -186,8 +186,8 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-    .controls {
+<style lang="scss">
+    .addresses-wrapper .controls {
         display: flex;
         justify-content: center;
     }

@@ -57,9 +57,9 @@ library.add(faCheck, faBan);
 export default {
     name: 'Inputor',
 
-    inject: ['errorHandler', 'i18n'],
-
     components: { quillEditor },
+
+    inject: ['errorHandler', 'i18n'],
 
     props: {
         title: {

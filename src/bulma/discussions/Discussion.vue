@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="discussion-wrapper">
         <div class="box has-background-light raises-on-hover">
             <article class="media">
                 <figure class="media-left">
@@ -14,7 +14,7 @@
                             {{ discussion.title }}
                         </h4>
                         <span class="has-text-info is-bold">
-{{ discussion.owner.name }}
+                            {{ discussion.owner.name }}
                         </span>
                         &bull;
                         <small class="has-text-muted">
@@ -110,9 +110,9 @@ library.add(faArrowLeft, faTrashAlt, faPencilAlt);
 export default {
     name: 'Discussion',
 
-    inject: ['i18n'],
-
     components: { Reply, Reactions, Confirmation },
+
+    inject: ['i18n'],
 
     props: {
         discussion: {
@@ -176,7 +176,7 @@ export default {
 </script>
 
 <style lang="scss">
-    .discussion-body {
+    .discussion-wrapper .discussion-body {
         h1 {
             font-size: 2em;
         }

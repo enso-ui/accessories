@@ -96,11 +96,11 @@ library.add(faPencilAlt, faTrashAlt, faCheck, faBan);
 export default {
     name: 'Comment',
 
-    inject: ['i18n'],
+    directives: { tooltip: VTooltip },
 
     components: { Inputor, Confirmation },
 
-    directives: { tooltip: VTooltip },
+    inject: ['i18n'],
 
     props: {
         comment: {
@@ -176,16 +176,18 @@ export default {
 };
 </script>
 
-<style scoped>
-    span.comment-body {
-        word-break: break-all;
-    }
+<style lang="scss">
+    .media {
+        .comment-body {
+            word-break: break-all;
+        }
 
-    .media-content {
-        overflow: unset;
-    }
+        .media-content {
+            overflow: unset;
+        }
 
-    .button.action {
-        position: inherit;
+        .button.action {
+            position: inherit;
+        }
     }
 </style>

@@ -49,9 +49,9 @@ import { focus, clickOutside } from '@enso-ui/directives';
 export default {
     name: 'Inputor',
 
-    inject: ['errorHandler', 'i18n'],
-
     directives: { focus, clickOutside },
+
+    inject: ['errorHandler', 'i18n'],
 
     props: {
         comment: {
@@ -194,7 +194,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
     .atwho-wrapper {
         position: relative;
 

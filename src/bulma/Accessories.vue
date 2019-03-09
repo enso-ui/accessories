@@ -13,21 +13,19 @@
 </template>
 
 <script>
-
 import { EnsoTabs as Tabs } from '@enso-ui/tabs/bulma';
 
 export default {
     name: 'Accessories',
 
-    inject: ['i18n'],
-
     components: { Tabs },
+
+    inject: ['i18n'],
 
     data: () => ({
         count: {},
     }),
 };
-
 </script>
 
 <style lang="scss">

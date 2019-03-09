@@ -1,5 +1,5 @@
 <template>
-    <div class="wrapper">
+    <div class="comments-wrapper">
         <div class="controls">
             <slot name="controls"
                 :is-mobile="isMobile"
@@ -60,7 +60,6 @@
 </template>
 
 <script>
-
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faPlus, faSync, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { mapState } from 'vuex';
@@ -71,9 +70,9 @@ library.add(faPlus, faSync, faSearch);
 export default {
     name: 'Comments',
 
-    inject: ['errorHandler', 'i18n'],
-
     components: { Comment },
+
+    inject: ['errorHandler', 'i18n'],
 
     props: {
         id: {
@@ -218,14 +217,11 @@ export default {
         },
     },
 };
-
 </script>
 
-<style scoped>
-
-    .controls {
+<style lang="scss">
+    .comments-wrapper .controls {
         display: flex;
         justify-content: center;
     }
-
 </style>

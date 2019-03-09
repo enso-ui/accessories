@@ -1,6 +1,6 @@
 <template>
     <div class="is-flex">
-        <span class="clap is-clickable has-margin-right-large"
+        <span class="clap-emoji is-clickable has-margin-right-large"
             @click="react"/>
         <figure class="image is-32x32 has-margin-left-small"
             v-for="reaction in reactable.reactions"
@@ -13,16 +13,15 @@
 </template>
 
 <script>
-
 import { mapState } from 'vuex';
 import { VTooltip } from 'v-tooltip';
 
 export default {
     name: 'Reactions',
 
-    inject: ['errorHandler'],
-
     directives: { tooltip: VTooltip },
+
+    inject: ['errorHandler'],
 
     props: {
         reactable: {
@@ -57,8 +56,8 @@ export default {
 
 </script>
 
-<style lang="scss" scoped>
-    .clap:before {
+<style lang="scss">
+    .clap-emoji:before {
         content: "👏";
         font-size: 24px;
     }

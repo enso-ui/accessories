@@ -37,11 +37,11 @@ library.add(faComments, faPlusSquare);
 export default {
     name: 'CommentsCard',
 
-    inject: ['i18n'],
-
     components: {
         Card, CardHeader, CardRefresh, CardCollapse, CardBadge, CardContent, Comments,
     },
+
+    inject: ['i18n'],
 
     props: {
         collapsed: {
@@ -98,8 +98,8 @@ export default {
 };
 </script>
 
-<style scoped>
-    .wrapper {
+<style lang="scss">
+    .comments-wrapper {
         max-height: 500px;
         overflow-y: auto;
     }

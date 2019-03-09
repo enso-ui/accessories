@@ -1,5 +1,5 @@
 <template>
-    <div class="level wrapper has-margin-top-medium">
+    <div class="document-wrapper level has-margin-top-medium">
         <div class="level-left">
             <div class="level-item">
                 <span class="icon is-small has-margin-small">
@@ -97,9 +97,9 @@ library.add([
 export default {
     name: 'Documents',
 
-    inject: ['canAccess', 'errorHandler'],
-
     components: { VPopover, Confirmation, Url },
+
+    inject: ['canAccess', 'errorHandler'],
 
     props: {
         file: {
@@ -142,8 +142,8 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-    .wrapper {
+<style lang="scss">
+    .document-wrapper {
         padding: .2rem;
         width: 100%;
         -webkit-box-shadow: 0px 0px 3px 1px rgba(133,133,133,1);

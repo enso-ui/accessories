@@ -1,5 +1,5 @@
 <template>
-    <div class="box has-background-light raises-on-hover">
+    <div class="box has-background-light raises-on-hover address">
         <div class="media">
             <div class="media-content">
                 <span class="icon is-pulled-right has-text-success"
@@ -72,29 +72,27 @@
                 </slot>
             </div>
         </div>
-        <div class="has-text-centered has-margin-top-medium">
-            <div class="details">
-                <a class="button is-naked"
-                    @click="$emit('edit')">
+        <div class="details has-text-centered has-margin-top-medium">
+            <a class="button is-naked"
+                @click="$emit('edit')">
+                <span class="icon">
+                    <fa icon="pencil-alt"/>
+                </span>
+            </a>
+            <a class="button is-naked"
+                @click="$emit('set-default')">
+                <span class="icon">
+                    <fa icon="anchor"/>
+                </span>
+            </a>
+            <confirmation placement="top"
+                @confirm="$emit('delete')">
+                <a class="button is-naked">
                     <span class="icon">
-                        <fa icon="pencil-alt"/>
+                        <fa icon="trash-alt"/>
                     </span>
                 </a>
-                <a class="button is-naked"
-                    @click="$emit('set-default')">
-                    <span class="icon">
-                        <fa icon="anchor"/>
-                    </span>
-                </a>
-                <confirmation placement="top"
-                    @confirm="$emit('delete')">
-                    <a class="button is-naked">
-                        <span class="icon">
-                            <fa icon="trash-alt"/>
-                        </span>
-                    </a>
-                </confirmation>
-            </div>
+            </confirmation>
         </div>
     </div>
 </template>
@@ -112,11 +110,11 @@ library.add(faPencilAlt, faAnchor, faGlobe, faStickyNote, faTrashAlt);
 export default {
     name: 'AddressCard',
 
-    inject: ['i18n'],
+    directives: { tooltip: VTooltip },
 
     components: { Confirmation },
 
-    directives: { tooltip: VTooltip },
+    inject: ['i18n'],
 
     props: {
         address: {
@@ -127,13 +125,15 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-    .media-content {
-        min-height: 148px;
-    }
+<style lang="scss">
+    .address {
+        .media .media-content {
+            min-height: 148px;
+        }
 
-    .details {
-        display: flex;
-        justify-content: center;
+        .details {
+            display: flex;
+            justify-content: center;
+        }
     }
 </style>
