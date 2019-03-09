@@ -8,8 +8,7 @@
             @loaded="ready = true; $emit('loaded')"
             ref="form">
             <template v-for="customField in customFields"
-                :slot="customField.name"
-                slot-scope="{ errors }">
+                v-slot[customField.name]="{ errors }">
                 <slot :name="customField.name"
                     :field="customField"
                     :errors="errors"/>

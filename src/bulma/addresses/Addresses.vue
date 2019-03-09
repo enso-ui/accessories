@@ -42,7 +42,7 @@
                     @set-default="setDefault(address)"
                     @edit="edit(address)"
                     @delete="destroy(address, index)">
-                    <template slot="address"
+                    <template v-slot:address
                         :address="address">
                         <slot name="address"
                             :address="address"/>
@@ -57,8 +57,7 @@
             ref="form"
             v-if="path">
             <template v-for="field in customFields"
-                :slot="field.name"
-                slot-scope="{ errors }">
+                v-slot[field.name]="{ errors }">
                 <slot :name="field.name"
                     :field="field"
                     :errors="errors"/>

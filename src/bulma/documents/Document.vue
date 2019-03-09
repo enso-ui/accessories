@@ -46,7 +46,7 @@
                         <span class="icon">
                             <fa icon="info-circle"/>
                         </span>
-                        <template slot="popover">
+                        <template v-slot:popover>
                             <div class="info">
                                 <p>
                                     <span class="icon is-small">
