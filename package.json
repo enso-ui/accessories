@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/laravel-enso/accessories.git"
+    "url": "git+https://github.com/@enso-ui/accessories.git"
   },
   "keywords": [
     "accessories",
@@ -21,9 +21,9 @@
   "author": "Adrian Ocneanu <aocneanu@gmail.com>",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/laravel-enso/accessories/issues"
+    "url": "https://github.com/@enso-ui/accessories/issues"
   },
-  "homepage": "https://github.com/laravel-enso/accessories#readme",
+  "homepage": "https://github.com/@enso-ui/accessories#readme",
   "devDependencies": {
     "@vue/eslint-config-airbnb": "^4.0.0",
     "babel-eslint": "^10.0.1",
