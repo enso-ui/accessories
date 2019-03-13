@@ -57,10 +57,9 @@
             ref="form"
             v-if="path">
             <template v-for="field in customFields"
-                v-slot[field.name]="{ errors }">
+                v-slot:[field.name]="props">
                 <slot :name="field.name"
-                    :field="field"
-                    :errors="errors"/>
+                    v-bind="props"/>
             </template>
         </address-form>
     </div>

@@ -8,10 +8,9 @@
             @loaded="ready = true; $emit('loaded')"
             ref="form">
             <template v-for="customField in customFields"
-                v-slot[customField.name]="{ errors }">
+                v-slot:[customField.name]="props">
                 <slot :name="customField.name"
-                    :field="customField"
-                    :errors="errors"/>
+                    v-bind="props"/>
             </template>
         </enso-form>
     </modal>
