@@ -5,7 +5,7 @@
             <button class="button"
                 @click="create()">
                 <span v-if="!isMobile">
-                    {{ __('New Address') }}
+                    {{ i18n('New Address') }}
                 </span>
                 <span class="icon">
                     <fa icon="plus"/>
@@ -14,7 +14,7 @@
             <button class="button has-margin-left-small"
                 @click="fetch()">
                 <span v-if="!isMobile">
-                    {{ __('Reload') }}
+                    {{ i18n('Reload') }}
                 </span>
                 <span class="icon">
                     <fa icon="sync"/>
@@ -24,7 +24,7 @@
                 <input class="input is-rounded"
                     type="text"
                     v-model="internalQuery"
-                    :placeholder="__('Filter')">
+                    :placeholder="i18n('Filter')">
                 <span class="icon is-small is-left">
                     <fa icon="search"/>
                 </span>
@@ -45,53 +45,53 @@
                     @delete="destroy(address, index)">
                     <template v-slot:address="{ address }">
                         <p>
-                            <span v-if="address.street_type">
-                                {{ __(address.street_type) }}
+                            <span v-if="address.streetType">
+                                {{ i18n(address.streetType) }}
                             </span>
                             <span v-if="address.street">
                                 {{ address.street }}
                             </span>
                             <span v-if="address.number">
                                 <span >
-                                    {{ __('Number') }}
+                                    {{ i18n('Number') }}
                                 </span>
                                 {{ address.number }}
                             </span>
                         </p>
                         <p>
                             <span v-if="address.building">
-                                {{ __(address.building_type) }}: {{ address.building }},
+                                {{ i18n(address.buildingType) }}: {{ address.building }},
                             </span>
                             <span v-if="address.entry">
-                                {{ __('Entry') }}: {{ address.entry }},
+                                {{ i18n('Entry') }}: {{ address.entry }},
                             </span>
                             <span v-if="address.floor">
-                                {{ __('Floor') }}: {{ address.floor }},
+                                {{ i18n('Floor') }}: {{ address.floor }},
                             </span>
                             <span v-if="address.apartment">
-                                {{ __('Apt') }}: {{ address.apartment }},
+                                {{ i18n('Apt') }}: {{ address.apartment }},
                             </span>
                         </p>
                         <p>
-                            <span v-if="address.locality_name">
-                                {{ address.locality_name }},
+                            <span v-if="address.localityName">
+                                {{ address.localityName }},
                             </span>
                             <span v-if="address.neighbourhood">
                                 {{ address.neighbourhood }}
                             </span>
                             <span v-if="address.sector">
-                                {{ __('Sector') }}: {{ address.sector }}
+                                {{ i18n('Sector') }}: {{ address.sector }}
                             </span>
                             <br>
-                            <span v-if="address.postal_area">
-                                {{ address.postal_area }}
+                            <span v-if="address.postalArea">
+                                {{ address.postalArea }}
                             </span>
                         </p>
                         <p>
                             <span class="icon">
                                 <fa icon="globe"/>
                             </span>
-                            {{ address.country_name }} <br>
+                            {{ address.country }} <br>
                             <span class="icon" v-if="address.obs">
                                 <fa icon="sticky-note"/>
                             </span>
@@ -116,7 +116,8 @@
             </template>
             <template v-slot:locality_id="props">
                 <select-field v-bind="props"
-                    @input="props.errors.clear(props.field.name); 
+                    :params="localityParams"
+                    @input="props.errors.clear(props.field.name);
                         sectors = props.field.value === bucharestId"/>
             </template>
             <template v-slot:sector="props">
@@ -144,6 +145,8 @@ export default {
     name: 'RoAddresses',
 
     components: { AddressCard, AddressForm, SelectField },
+
+    inject: ['i18n'],
 
     props: {
         id: {
@@ -201,6 +204,9 @@ export default {
         sectors() {
             if (this.$refs.sector && !this.sectors) {
                 this.$refs.sector.clear();
+                this.$refs.form.field('sector').meta.readonly = true;
+            } else {
+                this.$refs.form.field('sector').meta.readonly = false;
             }
         },
         query() {
