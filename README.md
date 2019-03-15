@@ -9,9 +9,8 @@
 Accessories
 
 ## Usage
-This package contains a suite of reusable components within the Enso ecosystem.
 
-### Demo
+This package contains a suite of reusable components within the Enso ecosystem.
 
 For live examples and demos, you may visit [laravel-enso.com](https://www.laravel-enso.com)
 
@@ -29,7 +28,7 @@ Import the desired component(s):
 import { Accessories, Addresses, Comments } from '@enso-ui/accessories/bulma';
 ```
 
-### Use
+### Example
 
 ```js
 <accessories>
