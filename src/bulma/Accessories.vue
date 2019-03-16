@@ -1,5 +1,5 @@
 <template>
-    <tabs>
+    <tabs v-on="$listeners">
         <template v-slot:label="{ tab }">
             <span>
                 {{ i18n(tab) }}
