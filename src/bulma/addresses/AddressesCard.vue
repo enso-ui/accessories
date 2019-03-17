@@ -1,5 +1,6 @@
 <template>
-    <card :collapsed="collapsed">
+    <card collapsible
+        :collapsed="collapsed">
         <card-header class="has-background-light">
             <template v-slot:title>
                 <span class="icon is-small has-margin-right-small">
