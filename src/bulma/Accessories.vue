@@ -4,7 +4,8 @@
             <span>
                 {{ i18n(tab) }}
             </span>
-            <span class="tag is-dark counter">
+            <span class="tag is-dark counter"
+                v-if="has(tab)">
                 {{ count[tab] }}
             </span>
         </template>
@@ -25,6 +26,13 @@ export default {
     data: () => ({
         count: {},
     }),
+
+    methods: {
+        has(tab) {
+            return Object.prototype.hasOwnProperty
+                .call(this.count, tab);
+        },
+    },
 };
 </script>
 
