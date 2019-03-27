@@ -114,14 +114,6 @@
                     "/>
             </template>
             <template v-slot:locality_id="props">
-                <label class="label">
-                    {{ i18n(props.field.label) }}
-                    <span class="icon is-small has-text-info"
-                          v-tooltip="i18n(props.field.meta.tooltip)"
-                          v-if="props.field.meta.tooltip">
-                        <fa icon="info-circle" size="xs"/>
-                    </span>
-                </label>
                 <form-field v-bind="props"
                     :params="localityParams"
                     @input="
