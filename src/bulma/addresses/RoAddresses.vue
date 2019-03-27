@@ -1,9 +1,8 @@
 <template>
-
     <div class="addresses-wrapper">
         <div class="controls">
             <button class="button"
-                @click="create()">
+                    @click="create()">
                 <span v-if="!isMobile">
                     {{ i18n('New Address') }}
                 </span>
@@ -52,7 +51,7 @@
                                 {{ address.street }}
                             </span>
                             <span v-if="address.number">
-                                <span >
+                                <span>
                                     {{ i18n('Number') }}
                                 </span>
                                 {{ address.number }}
@@ -108,26 +107,34 @@
             ref="form"
             v-if="path">
             <template v-slot:county_id="props">
-                <select-field v-bind="props"
+                <form-field v-bind="props"
                     @input="
                         localityParams.county_id = $event;
                         props.errors.clear(props.field.name);
                     "/>
             </template>
             <template v-slot:locality_id="props">
-                <select-field v-bind="props"
+                <label class="label">
+                    {{ i18n(props.field.label) }}
+                    <span class="icon is-small has-text-info"
+                          v-tooltip="i18n(props.field.meta.tooltip)"
+                          v-if="props.field.meta.tooltip">
+                        <fa icon="info-circle" size="xs"/>
+                    </span>
+                </label>
+                <form-field v-bind="props"
                     :params="localityParams"
-                    @input="props.errors.clear(props.field.name);
-                        sectors = props.field.value === bucharestId"/>
+                    @input="
+                        props.errors.clear(props.field.name);
+                        sectors = props.field.value === bucharestId
+                    "/>
             </template>
             <template v-slot:sector="props">
-                <select-field v-bind="props"
-                    @input="props.errors.clear(props.field.name)"
-                    ref="sector"/>
+                <form-field v-bind="props"
+                    @input="props.errors.clear(props.field.name)"/>
             </template>
         </address-form>
     </div>
-
 </template>
 
 <script>
@@ -135,16 +142,18 @@
 import { mapState } from 'vuex';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faPlus, faSync, faSearch } from '@fortawesome/free-solid-svg-icons';
+import { FormField } from '@enso-ui/forms/bulma';
 import AddressCard from './AddressCard.vue';
 import AddressForm from './AddressForm.vue';
-import { SelectField } from '@enso-ui/forms/bulma';
 
 library.add(faPlus, faSync, faSearch);
 
 export default {
     name: 'RoAddresses',
 
-    components: { AddressCard, AddressForm, SelectField },
+    components: {
+        AddressCard, AddressForm, FormField,
+    },
 
     inject: ['i18n'],
 
@@ -181,8 +190,7 @@ export default {
             const query = this.internalQuery.toLowerCase();
 
             return query
-                ? this.addresses.filter(({ city, street }) =>
-                    city.toLowerCase().indexOf(query) > -1
+                ? this.addresses.filter(({ city, street }) => city.toLowerCase().indexOf(query) > -1
                     || street.toLowerCase().indexOf(query) > -1)
                 : this.addresses;
         },
@@ -202,8 +210,8 @@ export default {
             this.$emit('update');
         },
         sectors() {
-            if (this.$refs.sector && !this.sectors) {
-                this.$refs.sector.clear();
+            if (!this.sectors) {
+                this.$refs.form.field('sector').value = null;
                 this.$refs.form.field('sector').meta.readonly = true;
             } else {
                 this.$refs.form.field('sector').meta.readonly = false;
