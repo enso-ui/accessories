@@ -1,5 +1,4 @@
 <template>
-
     <div class="addresses-wrapper">
         <div class="controls">
             <button class="button"
@@ -12,7 +11,7 @@
                 </span>
             </button>
             <button class="button has-margin-left-small"
-                    @click="fetch()">
+                @click="fetch()">
                 <span v-if="!isMobile">
                     {{ i18n('Reload') }}
                 </span>
@@ -22,27 +21,27 @@
             </button>
             <p class="control has-icons-left has-icons-right has-margin-left-large">
                 <input class="input is-rounded"
-                       type="text"
-                       v-model="internalQuery"
-                       :placeholder="i18n('Filter')">
+                    type="text"
+                    v-model="internalQuery"
+                    :placeholder="i18n('Filter')">
                 <span class="icon is-small is-left">
                     <fa icon="search"/>
                 </span>
                 <span class="icon is-small is-right clear-button"
-                      v-if="internalQuery"
-                      @click="internalQuery = ''">
+                    v-if="internalQuery"
+                    @click="internalQuery = ''">
                     <a class="delete is-small"/>
                 </span>
             </p>
         </div>
         <div class="columns is-multiline has-margin-top-large">
             <div class="column is-half-tablet is-one-third-widescreen"
-                 v-for="(address, index) in filteredAddresses"
-                 :key="address.id">
+                v-for="(address, index) in filteredAddresses"
+                :key="address.id">
                 <address-card :address="address"
-                              @set-default="setDefault(address)"
-                              @edit="edit(address)"
-                              @delete="destroy(address, index)">
+                    @set-default="setDefault(address)"
+                    @edit="edit(address)"
+                    @delete="destroy(address, index)">
                     <template v-slot:address="{ address }">
                         <p>
                             <span v-if="address.streetType">
@@ -52,7 +51,7 @@
                                 {{ address.street }}
                             </span>
                             <span v-if="address.number">
-                                <span >
+                                <span>
                                     {{ i18n('Number') }}
                                 </span>
                                 {{ address.number }}
@@ -102,14 +101,14 @@
             </div>
         </div>
         <address-form :path="path"
-                      @loaded="setFields()"
-                      @close="reset();"
-                      @submit="fetch(); reset();"
-                      ref="form"
-                      v-if="path">
+            @loaded="setFields()"
+            @close="reset();"
+            @submit="fetch(); reset();"
+            ref="form"
+            v-if="path">
             <template v-slot:county_id="props">
                 <form-field v-bind="props"
-                            @input="
+                    @input="
                         localityParams.county_id = $event;
                         props.errors.clear(props.field.name);
                     "/>
@@ -123,19 +122,19 @@
                         <fa icon="info-circle" size="xs"/>
                     </span>
                 </label>
-                <select-field v-bind="props"
-                              :params="localityParams"
-                              @input="props.errors.clear(props.field.name);
-                        sectors = props.field.value === bucharestId"/>
+                <form-field v-bind="props"
+                    :params="localityParams"
+                    @input="
+                        props.errors.clear(props.field.name);
+                        sectors = props.field.value === bucharestId
+                    "/>
             </template>
             <template v-slot:sector="props">
                 <form-field v-bind="props"
-                            @input="props.errors.clear(props.field.name)"
-                            ref="sector"/>
+                    @input="props.errors.clear(props.field.name)"/>
             </template>
         </address-form>
     </div>
-
 </template>
 
 <script>
@@ -143,16 +142,18 @@
 import { mapState } from 'vuex';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faPlus, faSync, faSearch } from '@fortawesome/free-solid-svg-icons';
+import { FormField } from '@enso-ui/forms/bulma';
 import AddressCard from './AddressCard.vue';
 import AddressForm from './AddressForm.vue';
-import { SelectField, FormField } from '@enso-ui/forms/bulma';
 
 library.add(faPlus, faSync, faSearch);
 
 export default {
     name: 'RoAddresses',
 
-    components: { AddressCard, AddressForm, SelectField, FormField },
+    components: {
+        AddressCard, AddressForm, FormField,
+    },
 
     inject: ['i18n'],
 
@@ -189,8 +190,7 @@ export default {
             const query = this.internalQuery.toLowerCase();
 
             return query
-                ? this.addresses.filter(({ city, street }) =>
-                    city.toLowerCase().indexOf(query) > -1
+                ? this.addresses.filter(({ city, street }) => city.toLowerCase().indexOf(query) > -1
                     || street.toLowerCase().indexOf(query) > -1)
                 : this.addresses;
         },
@@ -210,7 +210,7 @@ export default {
             this.$emit('update');
         },
         sectors() {
-            if (this.$refs.sector && !this.sectors) {
+            if (!this.sectors) {
                 this.$refs.form.field('sector').value = null;
                 this.$refs.form.field('sector').meta.readonly = true;
             } else {
