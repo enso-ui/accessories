@@ -1,6 +1,7 @@
 <template>
     <div class="documents-wrapper">
-        <div class="controls">
+        <div class="controls"
+            v-if="!disableControls">
             <slot :id="id"
                 name="controls"
                 :is-mobile="isMobile"
@@ -81,6 +82,10 @@ export default {
             default: '',
         },
         compact: {
+            type: Boolean,
+            default: false,
+        },
+        disableControls: {
             type: Boolean,
             default: false,
         },
