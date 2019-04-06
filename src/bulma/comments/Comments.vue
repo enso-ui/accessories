@@ -171,7 +171,7 @@ export default {
                 route('core.comments.store'),
                 this.postParams(),
             ).then(({ data }) => {
-                this.comments.unshift(data.comment);
+                this.comments.unshift(data);
                 this.comment = null;
                 this.$emit('update');
                 this.loading = false;
