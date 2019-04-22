@@ -53,6 +53,7 @@
                 :key="comment.id"
                 :comment="comment"
                 :index="index"
+                :human-readable-dates="humanReadableDates"
                 @save="update(comment)"
                 @delete="destroy(index)"/>
         </div>
@@ -95,6 +96,7 @@ export default {
         loading: false,
         internalQuery: '',
         path: v.$route.path,
+        diffForHumansDate: null,
     }),
 
     computed: {
@@ -137,7 +139,8 @@ export default {
                 route('core.comments.index'),
                 { params: this.params },
             ).then(({ data }) => {
-                this.comments = data;
+                this.comments = data.data;
+                this.humanReadableDates = data.humanReadableDates;
                 this.loading = false;
                 this.$emit('update');
             }).catch(this.errorHandler);

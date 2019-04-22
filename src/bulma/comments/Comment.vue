@@ -13,8 +13,13 @@
                 <a>
                     <strong>{{ comment.owner.name }}</strong>
                 </a>
-                <span v-tooltip="comment.updatedAt || comment.createdAt">
+                <span v-tooltip="comment.updatedAt || comment.createdAt"
+                    v-if="humanReadableDates">
                     {{ timeFromNow(comment.updatedAt || comment.createdAt) }}
+                </span>
+                <span v-tooltip="timeFromNow(comment.updatedAt || comment.createdAt)"
+                    v-else>
+                    {{ comment.updatedAt || comment.createdAt }}
                 </span>
                 <span v-if="comment.createdAt !== comment.updatedAt">
                     &bull; {{ i18n('edited') }}
@@ -105,6 +110,10 @@ export default {
     props: {
         comment: {
             type: Object,
+            required: true,
+        },
+        humanReadableDates: {
+            type: Boolean,
             required: true,
         },
         index: {
