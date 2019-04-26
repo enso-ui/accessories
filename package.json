@@ -1,6 +1,6 @@
 {
   "name": "@enso-ui/accessories",
-  "version": "1.0.24",
+  "version": "1.0.25",
   "description": "Accessories",
   "main": "index.js",
   "scripts": {
