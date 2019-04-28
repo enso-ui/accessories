@@ -9,7 +9,7 @@
             </p>
         </figure>
         <div class="media-content">
-            <div v-if="!isNew" class="has-margin-bottom-medium has-text-grey">
+            <div v-if="!isNew" class="has-margin-bottom-medium has-text-muted">
                 <a>
                     <strong>{{ comment.owner.name }}</strong>
                 </a>
@@ -29,7 +29,7 @@
                     <a v-if="comment.isEditable"
                         class="button is-naked is-small has-margin-right-small"
                         @click="originalBody = comment.body;">
-                        <span class="icon is-small has-text-grey">
+                        <span class="icon is-small has-text-muted">
                             <fa icon="pencil-alt"/>
                         </span>
                     </a>
@@ -40,7 +40,7 @@
                         @hide="dialog = controls = false">
                         <a class="button is-naked is-small"
                             @click="dialog=true">
-                            <span class="icon is-small has-text-grey">
+                            <span class="icon is-small has-text-muted">
                                 <fa icon="trash-alt"/>
                             </span>
                         </a>
