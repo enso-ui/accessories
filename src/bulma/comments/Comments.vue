@@ -53,7 +53,7 @@
                 :key="comment.id"
                 :comment="comment"
                 :index="index"
-                :human-readable-date="humanReadableDate"
+                :human-readable-dates="humanReadableDates"
                 @save="update(comment)"
                 @delete="destroy(index)"/>
         </div>
@@ -140,7 +140,7 @@ export default {
                 { params: this.params },
             ).then(({ data }) => {
                 this.comments = data.data;
-                this.humanReadableDate = data.humanReadableDate;
+                this.humanReadableDates = data.humanReadableDates;
                 this.loading = false;
                 this.$emit('update');
             }).catch(this.errorHandler);
