@@ -147,7 +147,7 @@ export default {
         AddressCard, AddressForm, FormField,
     },
 
-    inject: ['i18n'],
+    inject: ['errorHandler', 'i18n'],
 
     props: {
         id: {
@@ -227,7 +227,7 @@ export default {
                     this.addresses = data;
                     this.loading = false;
                     this.$emit('update');
-                }).catch(error => this.handleError(error));
+                }).catch(this.errorHandler);
         },
         edit(address) {
             this.path = route('core.addresses.edit', address.id);
@@ -240,7 +240,7 @@ export default {
 
             axios.patch(route('core.addresses.setDefault', address.id))
                 .then(() => this.fetch())
-                .catch(error => this.handleError(error));
+                .catch(this.errorHandler);
         },
         destroy(address, index) {
             this.loading = true;
@@ -249,7 +249,7 @@ export default {
                 .then(() => {
                     this.addresses.splice(index, 1);
                     this.loading = false;
-                }).catch(error => this.handleError(error));
+                }).catch(this.errorHandler);
         },
         setFields() {
             this.$refs.form.field('addressable_type').value = this.type;
