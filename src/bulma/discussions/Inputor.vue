@@ -16,26 +16,28 @@
                 @change="upload($event)"
                 v-if="attachments">
         </form>
-        <button class="button"
-            @click="$emit('cancel')">
-            <span>{{ i18n('Cancel') }}</span>
-            <span class="icon is-small">
-                <fa icon="ban"/>
-            </span>
-        </button>
-        <button class="button"
-            @click="save"
-            v-if="filled">
-            <span v-if="message.id">
-                {{ i18n('Update') }}
-            </span>
-            <span v-else>
-                {{ i18n('Post') }}
-            </span>
-            <span class="icon is-small">
-                <fa icon="check"/>
-            </span>
-        </button>
+        <div class="has-text-right">
+            <a class="button is-small is-rounded"
+                @click="$emit('cancel')">
+                <span>{{ i18n('Cancel') }}</span>
+                <span class="icon is-small">
+                    <fa icon="ban"/>
+                </span>
+            </a>
+            <a class="button is-success is-small is-rounded"
+                @click="save"
+                v-if="filled">
+                <span v-if="message.id">
+                    {{ i18n('Update') }}
+                </span>
+                <span v-else>
+                    {{ i18n('Post') }}
+                </span>
+                <span class="icon is-small">
+                    <fa icon="check"/>
+                </span>
+            </a>
+        </div>
     </div>
 </template>
 

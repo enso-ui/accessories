@@ -1,5 +1,7 @@
 <template>
-    <div class="box has-background-light raises-on-hover address">
+    <div class="box has-background-light raises-on-hover address has-padding-large"
+        @mouseover="controls = true"
+        @mouseleave="controls = !confirmation ? false : controls">
         <div class="media">
             <div class="media-content">
                 <span class="icon is-pulled-right has-text-success"
@@ -7,92 +9,106 @@
                     v-if="address.isDefault">
                     <fa icon="anchor"/>
                 </span>
-                <slot name="address" :address="address">
-                    <strong v-if="address.number">
-                        {{ address.number }}
-                    </strong>
-                    <strong>
-                        {{ address.street }}
-                    </strong>
-                    <strong v-if="address.streetType">
-                        {{ i18n(address.streetType) }},
-                    </strong>
-                    <br>
-                    <strong v-if="address.building">
-                        <span class="has-text-grey">
-                            {{ i18n(address.buildingType) }}
-                        </span>
-                        {{ address.building }},
-                    </strong>
-                    <strong v-if="address.entry">
-                        <span class="has-text-grey">
-                            {{ i18n('Entry') }}
-                        </span>
-                        {{ address.entry }},
-                    </strong>
-                    <strong v-if="address.floor">
-                        <span class="has-text-grey">
-                            {{ i18n('Floor') }}
-                        </span>
-                        {{ address.floor }},
-                    </strong>
-                    <strong v-if="address.apartment">
-                        <span class="has-text-grey">
-                            {{ i18n('Apartment') }}
-                        </span>
-                        {{ address.apartment }},
-                    </strong>
-                    <br>
-                    <strong v-if="address.subAdministrativeArea">
-                        {{ address.subAdministrativeArea }},
-                    </strong>
-                    <strong v-if="address.city">
-                        {{ address.city }},
-                    </strong>
-                    <br>
-                    <strong v-if="address.postalArea">
-                        {{ address.postalArea }},
-                    </strong>
-                    <strong v-if="address.administrativeArea">
-                        {{ address.administrativeArea }},
-                    </strong>
-                    <br>
-                    <span class="icon">
-                        <fa icon="globe"/>
+                <slot name="address"
+                    :address="address">
+                    <p>
+                        <strong v-if="address.number">
+                            {{ address.number }}
+                        </strong>
+                        <strong>
+                            {{ address.street }}
+                        </strong>
+                        <strong v-if="address.streetType">
+                            {{ i18n(address.streetType) }}
+                        </strong>
+                    </p>
+                    <p>
+                        <strong v-if="address.building">
+                            <span class="has-text-grey">
+                                {{ i18n(address.buildingType) }}
+                            </span>
+                            {{ address.building }}
+                        </strong>
+                    </p>
+                    <p>
+                        <strong v-if="address.entry">
+                            <span class="has-text-grey">
+                                {{ i18n('Entry') }}
+                            </span>
+                            {{ address.entry }}
+                        </strong>
+                        <strong v-if="address.floor">
+                            <span class="has-text-grey">
+                                {{ i18n('Floor') }}
+                            </span>
+                            {{ address.floor }}
+                        </strong>
+                        <strong v-if="address.apartment">
+                            <span class="has-text-grey">
+                                {{ i18n('Apt') }}
+                            </span>
+                            {{ address.apartment }}
+                        </strong>
+                    </p>
+                    <p>
+                        <strong v-if="address.subAdministrativeArea">
+                            {{ address.subAdministrativeArea }}
+                        </strong>
+                        <strong v-if="address.city">
+                            {{ address.city }}
+                        </strong>
+                        <br>
+                        <strong v-if="address.postalArea">
+                            {{ address.postalArea }}
+                        </strong>
+                        <strong v-if="address.administrativeArea">
+                            {{ address.administrativeArea }}
+                        </strong>
+                    </p>
+                </slot>
+                <p>
+                    <span class="icon is-small">
+                        <fa icon="globe"
+                            size="xs"/>
                     </span>
                     <strong>
                         {{ address.country }}
                     </strong>
-                    <br>
-                    <span class="icon"
+                    <span class="is-pulled-right is-flex"
+                        v-if="controls">
+                        <a class="button is-naked is-small"
+                            @click="$emit('edit')">
+                            <span class="icon">
+                                <fa icon="pencil-alt"/>
+                            </span>
+                        </a>
+                        <a class="button is-naked is-small"
+                            @click="$emit('set-default')">
+                            <span class="icon">
+                                <fa icon="anchor"/>
+                            </span>
+                        </a>
+                        <confirmation placement="top"
+                            @show="confirmation = true"
+                            @hide="confirmation = controls = false"
+                            @confirm="$emit('delete')">
+                            <a class="button is-naked is-small">
+                                <span class="icon">
+                                    <fa icon="trash-alt"/>
+                                </span>
+                            </a>
+                        </confirmation>
+                    </span>
+                </p>
+                <p>
+                    <span class="icon is-small"
                         v-if="address.obs">
-                        <fa icon="sticky-note"/>
+                        <fa icon="sticky-note"
+                            size="xs"/>
                     </span>
-                     {{ address.obs }}
-                </slot>
+                    {{ address.obs }}
+                </p>
             </div>
-        </div>
-        <div class="details has-text-centered has-margin-top-medium">
-            <a class="button is-naked"
-                @click="$emit('edit')">
-                <span class="icon">
-                    <fa icon="pencil-alt"/>
-                </span>
-            </a>
-            <a class="button is-naked"
-                @click="$emit('set-default')">
-                <span class="icon">
-                    <fa icon="anchor"/>
-                </span>
-            </a>
-            <confirmation placement="top"
-                @confirm="$emit('delete')">
-                <a class="button is-naked">
-                    <span class="icon">
-                        <fa icon="trash-alt"/>
-                    </span>
-                </a>
-            </confirmation>
         </div>
     </div>
 </template>
@@ -122,6 +138,11 @@ export default {
             required: true,
         },
     },
+
+    data: () => ({
+        controls: false,
+        confirmation: false,
+    }),
 };
 </script>
 
@@ -129,11 +150,6 @@ export default {
     .address {
         .media .media-content {
             min-height: 148px;
-        }
-
-        .details {
-            display: flex;
-            justify-content: center;
         }
     }
 </style>

@@ -1,41 +1,50 @@
 <template>
     <div class="addresses-wrapper">
-        <div class="controls">
-            <button class="button"
-                @click="create()">
-                <span v-if="!isMobile">
-                    {{ i18n('New Address') }}
-                </span>
-                <span class="icon">
-                    <fa icon="plus"/>
-                </span>
-            </button>
-            <button class="button has-margin-left-small"
-                @click="fetch()">
-                <span v-if="!isMobile">
-                    {{ i18n('Reload') }}
-                </span>
-                <span class="icon">
-                    <fa icon="sync"/>
-                </span>
-            </button>
-            <p class="control has-icons-left has-icons-right has-margin-left-large">
-                <input class="input is-rounded"
-                    type="text"
-                    v-model="internalQuery"
-                    :placeholder="i18n('Filter')">
-                <span class="icon is-small is-left">
-                    <fa icon="search"/>
-                </span>
-                <span class="icon is-small is-right clear-button"
-                    v-if="internalQuery"
-                    @click="internalQuery = ''">
-                    <a class="delete is-small"/>
-                </span>
-            </p>
+        <div class="field is-grouped">
+            <slot name="controls"
+                :create="create"
+                :internal-query="internalQuery"
+                :fetch="fetch">
+                <p class="control">
+                    <a class="button is-small is-info is-rounded is-bold"
+                        @click="create()">
+                        <span>
+                            {{ i18n('New Address') }}
+                        </span>
+                        <span class="icon">
+                            <fa icon="plus"/>
+                        </span>
+                    </a>
+                </p>
+                <p class="control has-icons-left has-icons-right is-expanded">
+                    <input class="input is-rounded is-small"
+                        type="text"
+                        v-model="internalQuery"
+                        :placeholder="i18n('Filter')">
+                    <span class="icon is-small is-left">
+                        <fa icon="search"/>
+                    </span>
+                    <span class="icon is-small is-right clear-button"
+                        v-if="internalQuery"
+                        @click="internalQuery = ''">
+                        <a class="delete is-small"/>
+                    </span>
+                </p>
+                <p class="control">
+                    <a class="button is-small is-rounded is-bold"
+                        @click="fetch()">
+                        <span>
+                            {{ i18n('Reload') }}
+                        </span>
+                        <span class="icon">
+                            <fa icon="sync"/>
+                        </span>
+                    </a>
+                </p>
+            </slot>
         </div>
         <div class="columns is-multiline has-margin-top-large">
-            <div class="column is-half-tablet is-one-third-widescreen"
+            <div class="column is-half-tablet"
                 v-for="(address, index) in filteredAddresses"
                 :key="index">
                 <address-card :address="address"
@@ -66,7 +75,6 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
 import { faPlus, faSync, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import AddressCard from './AddressCard.vue';
@@ -105,7 +113,6 @@ export default {
     }),
 
     computed: {
-        ...mapState('layout', ['isMobile']),
         filteredAddresses() {
             const query = this.internalQuery.toLowerCase();
 
@@ -184,10 +191,3 @@ export default {
     },
 };
 </script>
-
-<style lang="scss">
-    .addresses-wrapper .controls {
-        display: flex;
-        justify-content: center;
-    }
-</style>

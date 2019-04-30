@@ -1,32 +1,24 @@
 <template>
     <div class="comments-wrapper">
-        <div class="controls">
+        <div class="field is-grouped">
             <slot name="controls"
-                :is-mobile="isMobile"
                 :create="create"
                 :internal-query="internalQuery"
                 :fetch="fetch">
-                <a class="button"
-                    @click="create()">
-                    <span v-if="!isMobile">
-                        {{ i18n('Add Comment') }}
-                    </span>
-                    <span class="icon">
-                        <fa icon="plus"/>
-                    </span>
-                </a>
-                <a class="button has-margin-left-small"
-                    @click="fetch()">
-                    <span v-if="!isMobile">
-                        {{ i18n('Reload') }}
-                    </span>
-                    <span class="icon">
-                        <fa icon="sync"/>
-                    </span>
-                </a>
-                <p class="control has-icons-left has-icons-right has-margin-left-large">
+                <p class="control">
+                    <a class="button is-rounded is-small is-bold is-info"
+                        @click="create()">
+                        <span>
+                            {{ i18n('Add') }}
+                        </span>
+                        <span class="icon">
+                            <fa icon="plus"/>
+                        </span>
+                    </a>
+                </p>
+                <p class="control has-icons-left has-icons-right is-expanded">
                     <input v-model="internalQuery"
-                        class="input is-rounded"
+                        class="input is-rounded is-small is-expanded"
                         type="text"
                         :placeholder="i18n('Filter')">
                     <span class="icon is-small is-left">
@@ -37,6 +29,17 @@
                         @click="internalQuery = ''">
                         <a class="delete is-small"/>
                     </span>
+                </p>
+                <p class="control">
+                    <a class="button is-rounded is-small is-bold has-margin-left-medium"
+                        @click="fetch()">
+                        <span>
+                            {{ i18n('Reload') }}
+                        </span>
+                        <span class="icon">
+                            <fa icon="sync"/>
+                        </span>
+                    </a>
                 </p>
             </slot>
         </div>
@@ -101,7 +104,6 @@ export default {
 
     computed: {
         ...mapState(['user']),
-        ...mapState('layout', ['isMobile']),
         filteredComments() {
             const query = this.internalQuery.toLowerCase();
 
@@ -221,10 +223,3 @@ export default {
     },
 };
 </script>
-
-<style lang="scss">
-    .comments-wrapper .controls {
-        display: flex;
-        justify-content: center;
-    }
-</style>

@@ -15,36 +15,46 @@
         <discussion class="animated fadeIn"
             :discussion="discussion"
             @edit="inputor = true"
-            @back="discussion = null; get()"
+            @back="discussion = null; fetch()"
             @delete="destroy()"
             v-else-if="discussion"/>
         <div v-else>
-            <div class="controls has-margin-bottom-large">
-                <button class="button"
-                    @click="discussion = factory(); inputor = true;">
-                    <span v-if="!isMobile">
-                        {{ i18n('New Topic') }}
-                    </span>
-                    <span class="icon is-small">
-                        <fa icon="plus"/>
-                    </span>
-                </button>
-                <button class="button has-margin-left-small"
-                    @click="fetch()">
-                    <span v-if="!isMobile">
-                        {{ i18n('Reload') }}
-                    </span>
-                    <span class="icon is-small">
-                        <fa icon="sync"/>
-                    </span>
-                </button>
-                <p class="control has-icons-left has-margin-left-small">
-                    <input type="search"
-                        class="input is-rounded"
-                        v-model="query">
+            <div class="field is-grouped">
+                <p class="control">
+                    <a class="button is-rounded is-small is-bold is-info"
+                        @click="discussion = factory(); inputor = true;">
+                        <span>
+                            {{ i18n('New Topic') }}
+                        </span>
+                        <span class="icon">
+                            <fa icon="plus"/>
+                        </span>
+                    </a>
+                </p>
+                <p class="control has-icons-left has-icons-right is-expanded">
+                    <input v-model="query"
+                        class="input is-rounded is-small is-expanded"
+                        type="text"
+                        :placeholder="i18n('Filter')">
                     <span class="icon is-small is-left">
                         <fa icon="search"/>
                     </span>
+                    <span v-if="query"
+                        class="icon is-small is-right clear-button"
+                        @click="query = ''">
+                        <a class="delete is-small"/>
+                    </span>
+                </p>
+                <p class="control">
+                    <a class="button is-rounded is-small is-bold has-margin-left-medium"
+                        @click="fetch()">
+                        <span>
+                            {{ i18n('Reload') }}
+                        </span>
+                        <span class="icon">
+                            <fa icon="sync"/>
+                        </span>
+                    </a>
                 </p>
             </div>
             <div class="box has-background-light raises-on-hover"
@@ -96,7 +106,6 @@ export default {
     }),
 
     computed: {
-        ...mapState('layout', ['isMobile']),
         filteredDiscussions() {
             const query = this.query.toLowerCase();
 

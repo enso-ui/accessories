@@ -57,9 +57,15 @@ export default {
 
 </script>
 <style lang="scss">
-    .address-form {
-        .modal-content {
+    @media screen and (min-width: 1024px) {
+        .address-form .modal-content {
             width: 70%;
+        }
+    }
+
+    @media screen and (max-width: 1023px) {
+        .address-form .modal-content {
+            width: 95%;
         }
     }
 </style>

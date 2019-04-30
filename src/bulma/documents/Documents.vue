@@ -1,30 +1,23 @@
 <template>
     <div class="documents-wrapper">
-        <div class="controls"
+        <slot :id="id"
+            name="controls"
+            :type="type"
+            :uploadLink="uploadLink"
+            :fetch="fetch"
+            :internal-query="internalQuery"
             v-if="!disableControls">
-            <slot :id="id"
-                name="controls"
-                :is-mobile="isMobile"
-                :type="type"
-                :uploadLink="uploadLink"
-                :fetch="fetch"
-                :internal-query="internalQuery">
-                <uploader :params="{ documentable_type: type, documentable_id: id }"
-                    :url="uploadLink"
-                    multiple
-                    @upload-successful="fetch();"/>
-                <a class="button has-margin-left-small"
-                    @click="fetch()">
-                    <span v-if="!isMobile">
-                        {{ i18n('Reload') }}
-                    </span>
-                    <span class="icon">
-                        <fa icon="sync"/>
-                    </span>
-                </a>
-                <p class="control has-icons-left has-icons-right has-margin-left-large">
+            <div class="field is-grouped">
+                <p class="control">
+                    <uploader is-small
+                        :params="{ documentable_type: type, documentable_id: id }"
+                        :url="uploadLink"
+                        multiple
+                        @upload-successful="fetch();"/>
+                </p>
+                <p class="control has-icons-left has-icons-right is-expanded">
                     <input v-model="internalQuery"
-                        class="input is-rounded"
+                        class="input is-small is-rounded"
                         type="text"
                         :placeholder="i18n('Filter')">
                     <span class="icon is-small is-left">
@@ -36,13 +29,24 @@
                         <a class="delete is-small"/>
                     </span>
                 </p>
-            </slot>
-        </div>
+                <p class="control">
+                    <a class="button is-small is-rounded"
+                        @click="fetch()">
+                        <span>
+                            {{ i18n('Reload') }}
+                        </span>
+                        <span class="icon">
+                            <fa icon="sync"/>
+                        </span>
+                    </a>
+                </p>
+            </div>
+        </slot>
         <div class="has-margin-top-large"
             :class="{'columns is-mobile is-multiline': !compact}">
             <div v-for="(doc, index) in filteredDocuments"
                 :key="doc.id"
-                :class="{ 'column is-half-mobile is-one-third-desktop': !compact }">
+                :class="{ 'column is-half-touch is-half-desktop is-one-third-widescreen': !compact }">
                 <component :is="component"
                     :file="doc.file"
                     @delete="destroy(index)"/>
@@ -98,7 +102,6 @@ export default {
     }),
 
     computed: {
-        ...mapState('layout', ['isMobile']),
         filteredDocuments() {
             const query = this.internalQuery.toLowerCase();
 

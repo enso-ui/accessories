@@ -1,7 +1,7 @@
 <template>
-    <article class="media box has-background-light raises-on-hover"
+    <article class="media box has-background-light raises-on-hover has-padding-large"
         @mouseover="controls = true"
-        @mouseleave="!dialog ? controls = false: null">
+        @mouseleave="controls = !confirmation ? false : controls">
         <figure class="media-left">
             <p class="image is-48x48">
                 <img class="is-rounded"
@@ -9,52 +9,55 @@
             </p>
         </figure>
         <div class="media-content">
-            <div v-if="!isNew" class="has-margin-bottom-medium has-text-muted">
+            <div class="has-margin-bottom-medium"
+                v-if="!isNew">
                 <a>
                     <strong>{{ comment.owner.name }}</strong>
                 </a>
-                <span v-tooltip="comment.updatedAt || comment.createdAt"
+                <span class="has-text-muted"
+                    v-tooltip="comment.updatedAt || comment.createdAt"
                     v-if="humanReadableDates">
-                    {{ timeFromNow(comment.updatedAt || comment.createdAt) }}
+                    {{ timeFromNow(comment.updatedAt || comment.createdAt) }} {{ i18n('ago') }}
                 </span>
-                <span v-tooltip="timeFromNow(comment.updatedAt || comment.createdAt)"
+                <span class="has-text-muted"
+                    v-tooltip="`${timeFromNow(comment.updatedAt || comment.createdAt)} ${i18n('ago')}`"
                     v-else>
                     {{ comment.updatedAt || comment.createdAt }}
                 </span>
                 <span v-if="comment.createdAt !== comment.updatedAt">
                     &bull; {{ i18n('edited') }}
                 </span>
-                <div v-if="!isNew && !isEditing && controls"
-                    class="is-pulled-right is-flex">
-                    <a v-if="comment.isEditable"
-                        class="button is-naked is-small has-margin-right-small"
-                        @click="originalBody = comment.body;">
-                        <span class="icon is-small has-text-muted">
+                <div class="is-pulled-right is-flex"
+                    v-if="!isNew && !isEditing && controls">
+                    <a class="button is-naked is-small has-margin-right-small"
+                        @click="originalBody = comment.body;"
+                        v-if="comment.isEditable">
+                        <span class="icon is-small">
                             <fa icon="pencil-alt"/>
                         </span>
                     </a>
-                    <confirmation v-if="comment.isDeletable"
-                        placement="bottom-end"
+                    <confirmation placement="bottom-end"
                         @confirm="$emit('delete')"
-                        @show="dialog = true"
-                        @hide="dialog = controls = false">
+                        @show="confirmation = true"
+                        @hide="confirmation = controls = false"
+                        v-if="comment.isDeletable">
                         <a class="button is-naked is-small"
-                            @click="dialog=true">
-                            <span class="icon is-small has-text-muted">
+                            @click="confirmation = true">
+                            <span class="icon is-small">
                                 <fa icon="trash-alt"/>
                             </span>
                         </a>
                     </confirmation>
                 </div>
             </div>
-            <div v-if="!isEditing && !isNew"
-                class="comment-body"
-                v-html="highlightTaggedUsers"/>
+            <div class="comment-body"
+                v-html="highlightTaggedUsers"
+                v-if="!isEditing && !isNew"/>
             <div v-else>
                 <inputor :comment="comment"
                     v-on="$listeners"/>
-                <div class="has-margin-top-medium">
-                    <a class="button is-small is-outlined has-margin-right-small action"
+                <div class="has-margin-top-medium has-text-right">
+                    <a class="button is-rounded is-bold has-margin-right-small is-small action"
                         @click="isNew ? $emit('cancel-add') : cancelAdd()">
                         <span>
                             {{ i18n('Cancel') }}
@@ -64,10 +67,10 @@
                         </span>
                     </a>
                     <a v-tooltip.right="{
-                                content: i18n('Shift + Enter to post'),
-                                delay: 800
-                            }"
-                        class="button is-small is-outlined is-success action"
+                            content: i18n('Shift + Enter to post'),
+                            delay: 800
+                        }"
+                        class="button is-rounded is-bold is-success is-small action"
                         @click="isNew ? $emit('save') : update()">
                         <span v-if="isNew">
                             {{ i18n('Post') }}
@@ -114,7 +117,7 @@ export default {
         },
         humanReadableDates: {
             type: Boolean,
-            required: true,
+            default: true,
         },
         index: {
             type: Number,
@@ -128,7 +131,7 @@ export default {
 
     data: () => ({
         controls: false,
-        dialog: false,
+        confirmation: false,
         originalBody: null,
     }),
 
@@ -193,10 +196,6 @@ export default {
 
         .media-content {
             overflow: unset;
-        }
-
-        .button.action {
-            position: inherit;
         }
     }
 </style>

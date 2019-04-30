@@ -1,6 +1,8 @@
 <template>
     <div class="discussion-wrapper">
-        <div class="box has-background-light raises-on-hover">
+        <div class="box has-background-light raises-on-hover has-padding-large"
+            @mouseover="controls = true"
+            @mouseleave="controls = !confirmation ? false : controls">
             <article class="media">
                 <figure class="media-left">
                     <p class="image is-48x48">
@@ -29,42 +31,53 @@
                     </div>
                 </div>
                 <div class="media-right">
-                    <button class="button"
-                        @click="$emit('back')">
-                        <span>
-                            {{ i18n('Back') }}
-                        </span>
-                        <span class="icon is-small">
-                            <fa icon="arrow-left"/>
-                        </span>
-                    </button>
+                    <div>
+                        <a class="button is-small is-rounded"
+                            @click="$emit('back')">
+                            <span>
+                                {{ i18n('Back') }}
+                            </span>
+                            <span class="icon is-small">
+                                <fa icon="arrow-left"/>
+                            </span>
+                        </a>
+                    </div>
                 </div>
             </article>
-            <div class="is-flex is-pulled-right"
-                v-if="discussion.isEditable">
-                <button class="button is-naked is-small has-margin-right-small"
-                    @click="$emit('edit')">
-                    <span class="icon is-small has-text-grey">
-                        <fa icon="pencil-alt"/>
-                    </span>
-                </button>
-                <confirmation placement="bottom-end"
-                    @confirm="$emit('delete')"
-                    @show="confirmation = true"
-                    v-if="!discussion.replies.length">
-                    <button class="button is-naked is-small"
-                        @click="confirmation = true">
-                        <span class="icon is-small has-text-grey">
-                            <fa icon="trash-alt"/>
-                        </span>
-                    </button>
-                </confirmation>
-            </div>
             <div class="discussion-body has-padding-medium"
                 v-html="discussion.body"/>
-                <reactions class="has-margin-top-large"
-                    :reactable="discussion"
-                    type="discussion"/>
+            <div class="level">
+                <div class="level-left">
+                    <div class="level-item">
+                        <reactions class="has-margin-top-medium"
+                            :reactable="discussion"
+                            type="discussion"/>
+                    </div>
+                </div>
+                <div class="level-left">
+                    <div class="level-item">
+                        <div class="is-flex controls is-right"
+                            v-if="controls && discussion.isEditable">
+                            <a class="button is-naked is-small"
+                                @click="$emit('edit')">
+                                <span class="icon">
+                                    <fa icon="pencil-alt"/>
+                                </span>
+                            </a>
+                            <confirmation placement="top"
+                                @show="confirmation = true"
+                                @hide="confirmation = controls = false"
+                                @confirm="$emit('delete')">
+                                <a class="button is-naked is-small">
+                                    <span class="icon">
+                                        <fa icon="trash-alt"/>
+                                    </span>
+                                </a>
+                            </confirmation>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <h5 class="title is-5 is-flex">
             <span class="tag is-info is-rounded has-text-weight-bold">
@@ -83,7 +96,7 @@
             @store="store()"
             @cancel="reply = null;"
             v-if="reply"/>
-        <button class="button"
+        <button class="button is-small is-rounded is-info"
             @click="reply = replyFactory()"
             v-else>
             <span>
@@ -122,6 +135,7 @@ export default {
     },
 
     data: () => ({
+        controls: false,
         confirmation: false,
         reply: null,
     }),
@@ -176,28 +190,35 @@ export default {
 </script>
 
 <style lang="scss">
-    .discussion-wrapper .discussion-body {
-        h1 {
-            font-size: 2em;
+
+    .discussion-wrapper {
+        .controls.is-right {
+            justify-content: flex-end;
         }
 
-        h2 {
-            font-size: 1.5em;
-        }
+        .discussion-body {
+            h1 {
+                font-size: 2em;
+            }
 
-        .ql-align-center {
-            text-align: center;
-        }
+            h2 {
+                font-size: 1.5em;
+            }
 
-        ol, ul {
-            padding-left: 3em;
-        }
+            .ql-align-center {
+                text-align: center;
+            }
 
-        img {
-            width: 1.4rem;
-            height: 1.4rem;
-            margin-bottom: -0.3rem;
-            border-radius: 290486px;
+            ol, ul {
+                padding-left: 3em;
+            }
+
+            img {
+                width: 1.4rem;
+                height: 1.4rem;
+                margin-bottom: -0.3rem;
+                border-radius: 290486px;
+            }
         }
     }
 </style>

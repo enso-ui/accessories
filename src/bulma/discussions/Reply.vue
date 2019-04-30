@@ -1,6 +1,8 @@
 <template>
     <article class="media media-reply"
-        :class="{'box has-background-light raises-on-hover': !edit && reply.id}">
+        :class="{'box has-background-light raises-on-hover': !edit && reply.id}"
+        @mouseover="controls = true"
+        @mouseleave="controls = !confirmation ? false : controls">
         <figure class="media-left">
             <p class="image is-48x48">
                 <img class="is-rounded"
@@ -36,20 +38,22 @@
         </div>
         <div class="media-right">
             <div class="is-flex is-pulled-right"
-                v-if="reply.isEditable && !edit">
-                <button class="button is-naked is-small has-margin-right-small"
+                v-if="controls && reply.isEditable && !edit">
+                <a class="button is-naked is-small has-margin-right-small"
                     @click="edit = true">
-                    <span class="icon is-small has-text-grey">
+                    <span class="icon is-small">
                         <fa icon="pencil-alt"/>
                     </span>
-                </button>
+                </a>
                 <confirmation placement="bottom-end"
+                    @show="confirmation = true"
+                    @hide="confirmation = controls = false"
                     @confirm="$emit('delete')">
-                    <button class="button is-naked is-small">
-                        <span class="icon is-small has-text-grey">
+                    <a class="button is-naked is-small">
+                        <span class="icon is-small">
                             <fa icon="trash-alt"/>
                         </span>
-                    </button>
+                    </a>
                 </confirmation>
             </div>
         </div>
@@ -77,6 +81,8 @@ export default {
     },
 
     data: () => ({
+        controls: false,
+        confirmation: false,
         edit: false,
     }),
 

@@ -25,7 +25,7 @@
             </div>
         </div>
         <div class="media-right">
-            <span class="tag is-info is-medium has-text-weight-bold is-rounded">
+            <span class="tag is-info has-text-weight-bold is-rounded">
                 {{ discussion.replies.length }}
             </span>
         </div>
