@@ -50,7 +50,7 @@ export default {
             default: () => faMapSigns,
         },
         id: {
-            type: Number,
+            type: [String, Number],
             required: true,
         },
         type: {
