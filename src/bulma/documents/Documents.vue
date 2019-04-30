@@ -10,6 +10,7 @@
             <div class="field is-grouped">
                 <p class="control">
                     <uploader is-small
+                        is-rounded
                         :params="{ documentable_type: type, documentable_id: id }"
                         :url="uploadLink"
                         multiple
