@@ -15,14 +15,14 @@
                     <strong>{{ comment.owner.name }}</strong>
                 </a>
                 <span class="has-text-muted"
-                    v-tooltip="comment.updatedAt || comment.createdAt"
+                    v-tooltip="dateFormat(comment.updatedAt || comment.createdAt)"
                     v-if="humanReadableDates">
                     {{ timeFromNow(comment.updatedAt || comment.createdAt) }} {{ i18n('ago') }}
                 </span>
                 <span class="has-text-muted"
                     v-tooltip="`${timeFromNow(comment.updatedAt || comment.createdAt)} ${i18n('ago')}`"
                     v-else>
-                    {{ comment.updatedAt || comment.createdAt }}
+                    {{ dateFormat(comment.updatedAt || comment.createdAt) }}
                 </span>
                 <span v-if="comment.createdAt !== comment.updatedAt">
                     &bull; {{ i18n('edited') }}
@@ -90,12 +90,13 @@
 
 <script>
 import { VTooltip } from 'v-tooltip';
-import { mapGetters } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
     faPencilAlt, faTrashAlt, faCheck, faBan,
 } from '@fortawesome/free-solid-svg-icons';
 import Confirmation from '@enso-ui/confirmation/bulma';
+import format from '@core-modules/plugins/date-fns/format';
 import formatDistance from '@core-modules/plugins/date-fns/formatDistance';
 import Inputor from './Inputor.vue';
 
@@ -136,6 +137,7 @@ export default {
     }),
 
     computed: {
+        ...mapState(['meta']),
         ...mapGetters(['avatarLink']),
         avatar() {
             return this.isNew
@@ -183,6 +185,9 @@ export default {
         },
         timeFromNow(date) {
             return formatDistance(date);
+        },
+        dateFormat(date) {
+            return format(date, `${this.meta.dateFormat} H:i`);
         },
     },
 };
