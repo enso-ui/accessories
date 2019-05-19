@@ -105,7 +105,7 @@
             </div>
         </div>
         <address-form :path="path"
-            @loaded="setFields()"
+            @ready="setFields()"
             @close="reset();"
             @submit="fetch(); reset();"
             ref="form"

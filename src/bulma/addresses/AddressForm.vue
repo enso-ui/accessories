@@ -5,7 +5,7 @@
         <enso-form class="box has-background-light"
             v-bind="$attrs"
             v-on="$listeners"
-            @loaded="ready = true; $emit('loaded')"
+            @ready="ready = true"
             ref="form">
             <template v-for="customField in customFields"
                 v-slot:[customField.name]="props">
