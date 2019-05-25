@@ -33,7 +33,8 @@
                             <fa icon="cloud-download-alt"/>
                         </span>
                     </a>
-                    <confirmation @confirm="$emit('delete')">
+                    <confirmation @confirm="$emit('delete')"
+                        v-if="file.isDeletable && canAccess('core.documents.destroy')">
                         <button class="button is-naked">
                             <span class="icon">
                                 <fa icon="trash-alt"/>
