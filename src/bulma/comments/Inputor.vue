@@ -94,7 +94,7 @@ export default {
     methods: {
         fetch() {
             axios.get(route('administration.users.options'), {
-                params: { query: this.query, limit: 10 },
+                params: { query: this.query, paginate: 6 },
             }).then(({ data }) => {
                 this.items = data
                     .filter(({ id }) => id !== this.user.id);
