@@ -1,7 +1,11 @@
 <template>
     <tabs v-on="$listeners">
         <template v-slot:label="{ tab }">
-            <span>
+            <span class="icon is-small"
+                v-if="icons">
+                <fa :icon="tab"/>
+            </span>
+            <span v-else>
                 {{ i18n(tab) }}
             </span>
             <span class="tag is-dark counter"
@@ -22,6 +26,13 @@ export default {
     components: { Tabs },
 
     inject: ['i18n'],
+
+    props: {
+        icons: {
+            type: Boolean,
+            default: false,
+        },
+    },
 
     data: () => ({
         count: {},

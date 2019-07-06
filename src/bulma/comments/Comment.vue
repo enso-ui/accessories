@@ -3,7 +3,7 @@
         @mouseover="controls = true"
         @mouseleave="controls = !confirmation ? false : controls">
         <figure class="media-left">
-            <p class="image is-48x48">
+            <p class="image is-32x32">
                 <img class="is-rounded"
                     :src="avatar">
             </p>
