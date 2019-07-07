@@ -11,6 +11,7 @@
                 <p class="control">
                     <uploader is-small
                         is-rounded
+                        :compact="compact"
                         :params="{ documentable_type: type, documentable_id: id }"
                         :url="uploadLink"
                         multiple
@@ -33,7 +34,7 @@
                 <p class="control">
                     <a class="button is-small is-rounded"
                         @click="fetch()">
-                        <span>
+                        <span v-if="!compact">
                             {{ i18n('Reload') }}
                         </span>
                         <span class="icon">

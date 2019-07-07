@@ -8,7 +8,7 @@
                 <p class="control">
                     <a class="button is-rounded is-small is-bold is-info"
                         @click="create()">
-                        <span>
+                        <span v-if="!compact">
                             {{ i18n('Add') }}
                         </span>
                         <span class="icon">
@@ -33,7 +33,7 @@
                 <p class="control">
                     <a class="button is-rounded is-small is-bold has-margin-left-medium"
                         @click="fetch()">
-                        <span>
+                        <span v-if="!compact">
                             {{ i18n('Reload') }}
                         </span>
                         <span class="icon">
@@ -90,6 +90,10 @@ export default {
         query: {
             type: String,
             default: null,
+        },
+        compact: {
+            type: Boolean,
+            default: false,
         },
     },
 
