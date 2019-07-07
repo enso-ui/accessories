@@ -95,7 +95,7 @@ import Confirmation from '@enso-ui/confirmation/bulma';
 import formatDistance from '@core-modules/plugins/date-fns/formatDistance';
 import Url from '@core-pages/files/components/Url.vue';
 import { Fade } from '@enso-ui/transitions';
-import files from '@enso-ui/mixins';
+import { files } from '@enso-ui/mixins';
 
 library.add(
     faEye, faCloudDownloadAlt, faTrashAlt, faLink,
