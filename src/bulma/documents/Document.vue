@@ -1,104 +1,117 @@
 <template>
-    <div class="document-wrapper level has-margin-top-medium">
-        <div class="level-left">
-            <div class="level-item">
-                <span class="icon is-small has-margin-small">
-                    <fa icon="file"/>
-                </span>
-                <span>
-                    {{ shortName(file.name) }}
-                </span>
-            </div>
-        </div>
-        <div class="level-right">
-            <transition enter-active-class="animated fadeIn"
-                leave-active-class="animated fadeOut">
-                <div class="level-item has-text-grey">
-                    <button v-if="canAccess('core.files.link')"
-                        class="button is-naked"
-                        @click="link">
-                        <span class="icon">
-                            <fa icon="link"/>
-                        </span>
-                    </button>
-                    <button class="button is-naked"
-                        @click="show">
-                        <span class="icon">
-                            <fa icon="eye"/>
-                        </span>
-                    </button>
-                    <a class="button is-naked"
-                        :href="downloadLink">
-                        <span class="icon">
-                            <fa icon="cloud-download-alt"/>
-                        </span>
-                    </a>
-                    <confirmation @confirm="$emit('delete')"
-                        v-if="file.isDeletable && canAccess('core.documents.destroy')">
-                        <button class="button is-naked">
-                            <span class="icon">
-                                <fa icon="trash-alt"/>
-                            </span>
-                        </button>
-                    </confirmation>
-                    <v-popover
-                        trigger="hover"
-                        placement="top">
-                        <span class="icon">
-                            <fa icon="info-circle"/>
-                        </span>
-                        <template v-slot:popover>
-                            <div class="info">
-                                <p>
-                                    <span class="icon is-small">
-                                        <fa icon="user"/>
-                                    </span>
-                                    {{ file.owner.name }}
-                                </p>
-                                <p>
-                                    <span class="icon is-small">
-                                        <fa icon="calendar-alt"/>
-                                    </span>
-                                    {{ timeFromNow(file.createdAt) }}
-                                </p>
-                                <p>
-                                    <span class="icon is-small">
-                                        <fa icon="database"/>
-                                    </span>
-                                    {{ $options.filters.numberFormat(file.size) }} Kb
-                                </p>
-                            </div>
-                        </template>
-                    </v-popover>
+    <div class="box document has-padding-small raises-on-hover">
+        <div class="level">
+            <div class="level-left">
+                <div class="level-item">
+                    <span class="icon is-small has-margin-small"
+                        v-tooltip="file.name">
+                        <fa :icon="icon"/>
+                    </span>
+                    <span class="filename">{{ file.name }}</span>
                 </div>
-            </transition>
-            <url :show="temporaryLink !== ''"
-                :link="temporaryLink"
-                @close="temporaryLink = ''"/>
+            </div>
+            <div class="level-right">
+                <fade>
+                    <div class="level-item">
+                        <a v-if="canAccess('core.files.link')"
+                            class="is-naked has-margin-left-medium"
+                            @click="link">
+                            <span class="icon is-small">
+                                <fa icon="link"
+                                    size="sm"/>
+                            </span>
+                        </a>
+                        <a class="is-naked has-margin-left-medium"
+                            @click="show"
+                            v-if="isViewable">
+                            <span class="icon is-small">
+                                <fa icon="eye"
+                                    size="sm"/>
+                            </span>
+                        </a>
+                        <a class="is-naked has-margin-left-medium"
+                            :href="downloadLink">
+                            <span class="icon is-small">
+                                <fa icon="cloud-download-alt"
+                                    size="sm"/>
+                            </span>
+                        </a>
+                        <confirmation @confirm="$emit('delete')"
+                            v-if="file.isDeletable && canAccess('core.documents.destroy')">
+                            <a class="is-naked has-margin-left-medium">
+                                <span class="icon is-small">
+                                    <fa icon="trash-alt"
+                                        size="sm"/>
+                                </span>
+                            </a>
+                        </confirmation>
+                        <v-popover trigger="hover"
+                            placement="top">
+                            <span class="icon is-small is-naked has-margin-left-medium">
+                                <fa icon="info-circle"
+                                    size="sm"/>
+                            </span>
+                            <template v-slot:popover>
+                                <div class="info">
+                                    <p>
+                                        <span class="icon is-small">
+                                            <fa icon="user"/>
+                                        </span>
+                                        {{ file.owner.name }}
+                                    </p>
+                                    <p>
+                                        <span class="icon is-small">
+                                            <fa icon="calendar-alt"/>
+                                        </span>
+                                        {{ timeFromNow(file.createdAt) }}
+                                    </p>
+                                    <p>
+                                        <span class="icon is-small">
+                                            <fa icon="database"/>
+                                        </span>
+                                        {{ $options.filters.numberFormat(file.size) }} Kb
+                                    </p>
+                                </div>
+                            </template>
+                        </v-popover>
+                    </div>
+                </fade>
+                <url :show="temporaryLink !== ''"
+                    :link="temporaryLink"
+                    @close="temporaryLink = ''"/>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
-import { VPopover } from 'v-tooltip';
+import { VTooltip, VPopover } from 'v-tooltip';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
-    faFile, faEye, faCloudDownloadAlt, faTrashAlt, faLink,
+    faEye, faCloudDownloadAlt, faTrashAlt, faLink,
     faInfoCircle, faUser, faCalendarAlt, faDatabase,
 } from '@fortawesome/free-solid-svg-icons';
 import Confirmation from '@enso-ui/confirmation/bulma';
 import formatDistance from '@core-modules/plugins/date-fns/formatDistance';
 import Url from '@core-pages/files/components/Url.vue';
+import { Fade } from '@enso-ui/transitions';
+import files from '@enso-ui/mixins';
 
-library.add([
-    faFile, faEye, faCloudDownloadAlt, faTrashAlt, faLink,
+library.add(
+    faEye, faCloudDownloadAlt, faTrashAlt, faLink,
     faInfoCircle, faUser, faCalendarAlt, faDatabase,
-]);
+);
 
 export default {
-    name: 'Documents',
+    name: 'Document',
 
-    components: { VPopover, Confirmation, Url },
+    directives: { tooltip: VTooltip },
+
+    components: {
+        VPopover, Confirmation, Url, Fade,
+    },
+
+    mixins: [files],
 
     inject: ['canAccess', 'errorHandler'],
 
@@ -134,29 +147,27 @@ export default {
         timeFromNow(date) {
             return formatDistance(date);
         },
-        shortName(name) {
-            return name.length > 20
-                ? `${name.substring(0, 20)}...`
-                : name;
-        },
     },
 };
 </script>
 
 <style lang="scss">
-    .document-wrapper {
-        padding: .2rem;
-        width: 100%;
-        -webkit-box-shadow: 0px 0px 3px 1px rgba(133,133,133,1);
-        box-shadow: 0px 0px 3px 1px rgba(133,133,133,1);
-        border-radius: 5px;
+    .box.document {
+        .level-left {
+            flex: 1;
+            min-width: 0;
 
-        &:hover {
-            border-left: 4px solid #3273dc;
-        }
+            .level-item {
+                flex: 1;
+                min-width: 0;
+                justify-content: flex-start;
 
-        &:not(:last-child) {
-            margin-bottom: 0.75rem;
+                .filename {
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+            }
         }
     }
 </style>
