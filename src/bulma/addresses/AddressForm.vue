@@ -6,6 +6,7 @@
             v-bind="$attrs"
             v-on="$listeners"
             @ready="ready = true"
+            disable-state
             ref="form">
             <template v-for="customField in customFields"
                 v-slot:[customField.name]="props">
