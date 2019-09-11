@@ -125,7 +125,7 @@ export default {
 
     components: { Reply, Reactions, Confirmation },
 
-    inject: ['i18n'],
+    inject: ['i18n', 'route'],
 
     props: {
         discussion: {
@@ -143,7 +143,7 @@ export default {
     computed: {
         ...mapState(['user']),
         avatar() {
-            return route(
+            return this.route(
                 'core.avatars.show',
                 this.discussion.owner.avatarId,
             );
@@ -155,7 +155,7 @@ export default {
 
     methods: {
         store() {
-            axios.post(route('core.discussions.storeReply'), this.reply)
+            axios.post(this.route('core.discussions.storeReply'), this.reply)
                 .then(({ data }) => {
                     this.discussion.replies.push(data);
                     this.reply = null;
@@ -163,12 +163,12 @@ export default {
                 .catch(error => this.handleErorr(error));
         },
         update(reply, index) {
-            axios.patch(route('core.discussions.updateReply', reply.id), reply)
+            axios.patch(this.route('core.discussions.updateReply', reply.id), reply)
                 .then(({ data }) => this.discussion.replies.splice(index, 1, data))
                 .catch(error => this.handleErorr(error));
         },
         destroy(reply, index) {
-            axios.delete(route('core.discussions.destroyReply', reply.id))
+            axios.delete(this.route('core.discussions.destroyReply', reply.id))
                 .then(() => this.discussion.replies.splice(index, 1))
                 .catch(error => this.handleErorr(error));
         },

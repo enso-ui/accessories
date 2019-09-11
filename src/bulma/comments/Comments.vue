@@ -76,7 +76,7 @@ export default {
 
     components: { Comment },
 
-    inject: ['errorHandler', 'i18n'],
+    inject: ['errorHandler', 'i18n', 'route'],
 
     props: {
         id: {
@@ -142,7 +142,7 @@ export default {
             this.loading = true;
 
             axios.get(
-                route('core.comments.index'),
+                this.route('core.comments.index'),
                 { params: this.params },
             ).then(({ data }) => {
                 this.comments = data.data;
@@ -177,7 +177,7 @@ export default {
             this.loading = true;
 
             axios.post(
-                route('core.comments.store'),
+                this.route('core.comments.store'),
                 this.postParams(),
             ).then(({ data }) => {
                 this.comments.unshift(data);
@@ -200,7 +200,7 @@ export default {
             this.loading = true;
 
             axios.patch(
-                route('core.comments.update', comment.id),
+                this.route('core.comments.update', comment.id),
                 comment,
             ).then(({ data }) => {
                 Object.assign(comment, data);
@@ -217,7 +217,7 @@ export default {
         destroy(index) {
             this.loading = true;
 
-            axios.delete(route('core.comments.destroy', this.comments[index].id))
+            axios.delete(this.route('core.comments.destroy', this.comments[index].id))
                 .then(() => {
                     this.comments.splice(index, 1);
                     this.$emit('update');

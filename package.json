@@ -38,7 +38,7 @@
     "@enso-ui/card": "^1.0.0",
     "@enso-ui/confirmation": "^1.0.0",
     "@enso-ui/directives": "^1.0.0",
-    "@enso-ui/forms": "^1.0.0",
+    "@enso-ui/forms": "~1.0.0",
     "@enso-ui/mixins": "^1.0.7",
     "@enso-ui/modal": "^1.0.0",
     "@enso-ui/tabs": "^1.0.5",

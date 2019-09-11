@@ -72,7 +72,7 @@ export default {
 
     components: { Document, File, Uploader },
 
-    inject: ['errorHandler', 'i18n'],
+    inject: ['errorHandler', 'i18n', 'route'],
 
     props: {
         id: {
@@ -115,7 +115,7 @@ export default {
             return this.filteredDocuments.length;
         },
         uploadLink() {
-            return route('core.documents.store');
+            return this.route('core.documents.store');
         },
         component() {
             return this.compact
@@ -138,7 +138,7 @@ export default {
         fetch() {
             this.loading = true;
 
-            axios.get(route('core.documents.index'), {
+            axios.get(this.route('core.documents.index'), {
                 params: { documentable_type: this.type, documentable_id: this.id },
             }).then(({ data }) => {
                 this.documents = data;
@@ -149,7 +149,7 @@ export default {
         destroy(index) {
             this.loading = true;
 
-            axios.delete(route(
+            axios.delete(this.route(
                 'core.documents.destroy',
                 this.documents[index].id, false,
             )).then(() => {

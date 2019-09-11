@@ -87,7 +87,7 @@ export default {
 
     components: { AddressCard, AddressForm },
 
-    inject: ['errorHandler', 'i18n'],
+    inject: ['errorHandler', 'i18n', 'route'],
 
     props: {
         id: {
@@ -148,7 +148,7 @@ export default {
         fetch() {
             this.loading = true;
 
-            axios.get(route('core.addresses.index'), { params: this.params })
+            axios.get(this.route('core.addresses.index'), { params: this.params })
                 .then(({ data }) => {
                     this.addresses = data;
                     this.$emit('update');
@@ -156,22 +156,22 @@ export default {
                 }).catch(this.errorHandler);
         },
         edit(address) {
-            this.path = route('core.addresses.edit', address.id);
+            this.path = this.route('core.addresses.edit', address.id);
         },
         create() {
-            this.path = route('core.addresses.create', this.params);
+            this.path = this.route('core.addresses.create', this.params);
         },
         setDefault(address) {
             this.loading = true;
 
-            axios.patch(route('core.addresses.setDefault', address.id))
+            axios.patch(this.route('core.addresses.setDefault', address.id))
                 .then(() => this.fetch())
                 .catch(this.errorHandler);
         },
         destroy(address, index) {
             this.loading = true;
 
-            axios.delete(route('core.addresses.destroy', address.id))
+            axios.delete(this.route('core.addresses.destroy', address.id))
                 .then(() => {
                     this.addresses.splice(index, 1);
                     this.$emit('update');

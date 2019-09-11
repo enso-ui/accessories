@@ -1,5 +1,6 @@
 import Quill from 'quill';
 import debounce from 'lodash/debounce';
+import route from '@core-modules/plugins/route';
 import Keys from './constants/keys';
 import './blots/mention';
 

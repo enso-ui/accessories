@@ -51,7 +51,7 @@ export default {
 
     directives: { focus, clickOutside },
 
-    inject: ['errorHandler', 'i18n'],
+    inject: ['errorHandler', 'i18n', 'route'],
 
     props: {
         comment: {
@@ -93,7 +93,7 @@ export default {
 
     methods: {
         fetch() {
-            axios.get(route('administration.users.options'), {
+            axios.get(this.route('administration.users.options'), {
                 params: { query: this.query, paginate: 6 },
             }).then(({ data }) => {
                 this.items = data

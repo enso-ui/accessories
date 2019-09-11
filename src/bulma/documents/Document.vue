@@ -13,8 +13,8 @@
             <div class="level-right">
                 <fade>
                     <div class="level-item">
-                        <a v-if="canAccess('core.files.link')"
-                            class="is-naked has-margin-left-medium"
+                        <a class="is-naked has-margin-left-medium"
+                            v-if="file.isShareable && canAccess('core.files.link')"
                             @click="link">
                             <span class="icon is-small">
                                 <fa icon="link"
@@ -23,21 +23,22 @@
                         </a>
                         <a class="is-naked has-margin-left-medium"
                             @click="show"
-                            v-if="isViewable">
+                            v-if="file.isViewable && canAccess('core.files.show')">
                             <span class="icon is-small">
                                 <fa icon="eye"
                                     size="sm"/>
                             </span>
                         </a>
                         <a class="is-naked has-margin-left-medium"
-                            :href="downloadLink">
+                            :href="downloadLink"
+                            v-if="file.isViewable && canAccess('core.files.download')">
                             <span class="icon is-small">
                                 <fa icon="cloud-download-alt"
                                     size="sm"/>
                             </span>
                         </a>
                         <confirmation @confirm="$emit('delete')"
-                            v-if="file.isDeletable && canAccess('core.documents.destroy')">
+                            v-if="file.isDestroyable && canAccess('core.documents.destroy')">
                             <a class="is-naked has-margin-left-medium">
                                 <span class="icon is-small">
                                     <fa icon="trash-alt"
@@ -113,7 +114,7 @@ export default {
 
     mixins: [files],
 
-    inject: ['canAccess', 'errorHandler'],
+    inject: ['canAccess', 'errorHandler', 'route'],
 
     props: {
         file: {
@@ -128,16 +129,16 @@ export default {
 
     computed: {
         downloadLink() {
-            return route('core.files.download', this.file.id);
+            return this.route('core.files.download', this.file.id);
         },
         openLink() {
-            return route('core.files.show', this.file.id);
+            return this.route('core.files.show', this.file.id);
         },
     },
 
     methods: {
         link() {
-            axios.get(route('core.files.link', this.file.id))
+            axios.get(this.route('core.files.link', this.file.id))
                 .then(({ data }) => (this.temporaryLink = data.link))
                 .catch(this.errorHandler);
         },

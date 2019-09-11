@@ -46,7 +46,6 @@ import 'quill/dist/quill.core.css';
 import 'quill/dist/quill.snow.css';
 
 import { quillEditor } from 'vue-quill-editor';
-
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faCheck, faBan } from '@fortawesome/free-solid-svg-icons';
 
@@ -61,7 +60,7 @@ export default {
 
     components: { quillEditor },
 
-    inject: ['errorHandler', 'i18n'],
+    inject: ['errorHandler', 'i18n', 'route'],
 
     props: {
         title: {
@@ -148,22 +147,22 @@ export default {
 
             formData.append('attachment', $event.target.files[0]);
 
-            axios.post(route('core.discussions.upload'), formData)
+            axios.post(this.route('core.discussions.upload'), formData)
                 .then(({ data }) => {
                     Editor.insertEmbed(
                         Editor.getSelection().index,
                         'image',
-                        route('core.discussions.showAttachment', data.id),
+                        this.route('core.discussions.showAttachment', data.id),
                     );
 
                     this.$refs.inputForm.reset();
                 }).catch(this.errorHandler);
         },
         avatar(avatarId) {
-            return route('core.avatars.show', avatarId);
+            return this.route('core.avatars.show', avatarId);
         },
         template(user) {
-            return `<img src="${route('core.avatars.show', user.avatar.id)}"> ${user.person.name}`;
+            return `<img src="${this.route('core.avatars.show', user.avatar.id)}"> ${user.person.name}`;
         },
     },
 };

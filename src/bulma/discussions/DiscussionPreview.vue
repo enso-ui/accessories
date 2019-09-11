@@ -46,6 +46,8 @@ export default {
         },
     },
 
+    inject: ['route'],
+
     props: {
         discussion: {
             type: Object,
@@ -59,7 +61,7 @@ export default {
 
     computed: {
         avatar() {
-            return route(
+            return this.route(
                 'core.avatars.show',
                 this.discussion.owner.avatarId || 'null',
             );

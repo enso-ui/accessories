@@ -42,7 +42,7 @@ export default {
         Card, CardHeader, CardRefresh, CardCollapse, CardBadge, CardContent, Documents,
     },
 
-    inject: ['i18n'],
+    inject: ['i18n', 'route'],
 
     props: {
         icon: {
@@ -78,7 +78,7 @@ export default {
             return this.count === 0;
         },
         uploadLink() {
-            return route('core.documents.store');
+            return this.route('core.documents.store');
         },
         displayTitle() {
             return !this.isMobile

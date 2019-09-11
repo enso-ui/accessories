@@ -69,7 +69,7 @@ import Inputor from './Inputor.vue';
 export default {
     name: 'Reply',
 
-    inject: ['i18n'],
+    inject: ['i18n', 'route'],
 
     components: { Inputor, Confirmation },
 
@@ -88,7 +88,7 @@ export default {
 
     computed: {
         avatar() {
-            return route(
+            return this.route(
                 'core.avatars.show',
                 this.reply.owner.avatarId,
             );

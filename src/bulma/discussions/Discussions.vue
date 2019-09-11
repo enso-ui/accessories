@@ -84,7 +84,7 @@ export default {
 
     components: { Discussion, DiscussionPreview, Inputor },
 
-    inject: ['errorHandler', 'i18n'],
+    inject: ['errorHandler', 'i18n', 'route'],
 
     props: {
         id: {
@@ -127,7 +127,7 @@ export default {
         fetch() {
             this.loading = true;
 
-            axios.get(route('core.discussions.index'), {
+            axios.get(this.route('core.discussions.index'), {
                 params: {
                     discussable_id: this.id,
                     discussable_type: this.type,
@@ -139,7 +139,7 @@ export default {
             }).catch(this.errorHandler);
         },
         store() {
-            axios.post(route('core.discussions.store'), this.discussion)
+            axios.post(this.route('core.discussions.store'), this.discussion)
                 .then(({ data }) => {
                     this.discussion = data;
                     this.discussions.unshift(this.discussion);
@@ -149,14 +149,14 @@ export default {
         },
         update() {
             axios.patch(
-                route('core.discussions.update', this.discussion.id),
+                this.route('core.discussions.update', this.discussion.id),
                 this.discussion,
             )
                 .then(() => (this.inputor = false))
                 .catch(this.errorHandler);
         },
         destroy() {
-            axios.delete(route('core.discussions.destroy', this.discussion.id))
+            axios.delete(this.route('core.discussions.destroy', this.discussion.id))
                 .then(() => {
                     const index = this.discussions.findIndex(({ id }) => id === this.discussion.id);
                     this.discussions.splice(index, 1);

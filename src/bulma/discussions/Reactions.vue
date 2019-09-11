@@ -21,7 +21,7 @@ export default {
 
     directives: { tooltip: VTooltip },
 
-    inject: ['errorHandler'],
+    inject: ['errorHandler', 'route'],
 
     props: {
         reactable: {
@@ -40,7 +40,7 @@ export default {
 
     methods: {
         react() {
-            axios.post(route('core.discussions.react'), {
+            axios.post(this.route('core.discussions.react'), {
                 reactableId: this.reactable.id,
                 reactableType: this.type,
                 userId: this.user.id,
@@ -49,7 +49,7 @@ export default {
                 .catch(this.errorHandler);
         },
         avatar(avatarId) {
-            return route('core.avatars.show', avatarId);
+            return this.route('core.avatars.show', avatarId);
         },
     },
 };
