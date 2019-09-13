@@ -44,6 +44,7 @@
     "@enso-ui/tabs": "^1.0.5",
     "@enso-ui/transitions": "^1.0.5",
     "@enso-ui/uploader": "^1.0.3",
+    "@enso-ui/ui": "~1.1.0",
     "@fortawesome/fontawesome-svg-core": "^1.2.2",
     "@fortawesome/free-solid-svg-icons": "^5.2.0",
     "@fortawesome/vue-fontawesome": "^0.1.1",
