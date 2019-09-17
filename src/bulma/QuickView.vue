@@ -40,15 +40,17 @@ export default {
         }
 
         @media screen and (min-width: 1280px) {
-            width: 25%;
+            width: 30%;
         }
 
         @media screen and (min-width: 1024px) and (max-width: 1279px) {
-            width: 33%;
+            width: 37%;
         }
+
         @media screen and (min-width: 768px) and (max-width: 1023px) {
-            width: 40%;
+            width: 44%;
         }
+
         @media screen and (max-width: 767px) {
             width: 50%;
         }
