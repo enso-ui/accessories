@@ -62,7 +62,7 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { faPlus, faSync, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { mapState } from 'vuex';
 import { Uploader } from '@enso-ui/uploader/bulma';
-import File from '@core-pages/files/components/File.vue';
+import File from '@files/pages/files/components/File.vue';
 import Document from './Document.vue';
 
 library.add(faPlus, faSync, faSearch);
