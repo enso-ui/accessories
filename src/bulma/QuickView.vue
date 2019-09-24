@@ -31,7 +31,7 @@ export default {
         top: 52px;
         right: 0;
         bottom: 0;
-        z-index: 3;
+        z-index: 5;
         flex: 1 1 0%;
         display: block;
 
