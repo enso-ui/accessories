@@ -93,8 +93,8 @@ import {
     faInfoCircle, faUser, faCalendarAlt, faDatabase,
 } from '@fortawesome/free-solid-svg-icons';
 import Confirmation from '@enso-ui/confirmation/bulma';
-import formatDistance from '@core-modules/plugins/date-fns/formatDistance';
-import Url from '@files/pages/files/components/Url.vue';
+import formatDistance from '@enso-ui/ui/src/modules/plugins/date-fns/formatDistance';
+import Url from '@enso-ui/files/src/bulma/pages/files/components/Url.vue';
 import { Fade } from '@enso-ui/transitions';
 import { files } from '@enso-ui/mixins';
 

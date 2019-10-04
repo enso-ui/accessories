@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import formatDistance from '@core-modules/plugins/date-fns/formatDistance';
+import formatDistance from '@enso-ui/ui/src/modules/plugins/date-fns/formatDistance';
 
 export default {
     name: 'DiscussionPreview',
