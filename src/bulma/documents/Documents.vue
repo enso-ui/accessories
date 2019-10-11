@@ -15,6 +15,7 @@
                         :params="{ documentable_type: type, documentable_id: id }"
                         :url="uploadLink"
                         multiple
+                        v-if="uploadLink"
                         @upload-successful="fetch();"/>
                 </p>
                 <p class="control has-icons-left has-icons-right is-expanded">
@@ -72,7 +73,7 @@ export default {
 
     components: { Document, File, Uploader },
 
-    inject: ['errorHandler', 'i18n', 'route'],
+    inject: ['errorHandler', 'i18n', 'route', 'canAccess'],
 
     props: {
         id: {
@@ -115,7 +116,9 @@ export default {
             return this.filteredDocuments.length;
         },
         uploadLink() {
-            return this.route('core.documents.store');
+            return this.canAccess('core.documents.store')
+                ? this.route('core.documents.store')
+                : null;
         },
         component() {
             return this.compact
