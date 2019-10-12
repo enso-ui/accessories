@@ -9,7 +9,7 @@
             v-if="!disableControls">
             <div class="field is-grouped">
                 <p class="control">
-                    <uploader is-small
+                    <enso-uploader is-small
                         is-rounded
                         :compact="compact"
                         :params="{ documentable_type: type, documentable_id: id }"
@@ -58,10 +58,10 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faPlus, faSync, faSearch } from '@fortawesome/free-solid-svg-icons';
-import { mapState } from 'vuex';
-import { Uploader } from '@enso-ui/uploader/bulma';
+import { EnsoUploader } from '@enso-ui/uploader/bulma';
 import File from '@enso-ui/files/src/bulma/pages/files/components/File.vue';
 import Document from './Document.vue';
 
@@ -70,7 +70,7 @@ library.add(faPlus, faSync, faSearch);
 export default {
     name: 'Documents',
 
-    components: { Document, File, Uploader },
+    components: { Document, File, EnsoUploader },
 
     inject: ['errorHandler', 'i18n', 'route'],
 
