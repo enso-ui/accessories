@@ -14,39 +14,9 @@ This package contains a suite of reusable components within the Enso ecosystem.
 
 For live examples and demos, you may visit [laravel-enso.com](https://www.laravel-enso.com)
 
-Check the full [documentation](https://docs.laravel-enso.com/frontEnd/accessories.html).
+### Installation, Configuration & Usage
 
-### Installation
-
-Install the package:
-```
-yarn add @enso-ui/accessories
-```
-
-Import the desired component(s):
-```js
-import { Accessories, Addresses, Comments } from '@enso-ui/accessories/bulma';
-```
-
-### Example
-
-```js
-<accessories>
-    <template slot-scope="{ count }">
-        <tab keep-alive
-            id="Addresses">
-            <addresses :id="myCompanyId"
-                type="LaravelEnso\Companies\app\Models\Company"
-                @update="$set(count, 'Addresses', $refs.addresses.count)"
-                ref="addresses"/>
-            <comments :id="myCompanyId"
-                type="LaravelEnso\Companies\app\Models\Company"
-                @update="$set(count, 'Comments', $refs.comments.count)"
-                ref="comments"/>
-        </tab>
-    </template>
-</accessories>
-``` 
+Be sure to check out the full documentation for this package available at [docs.laravel-enso.com](https://docs.laravel-enso.com/frontend/accessories.html)
 
 ## Contributions
 
