@@ -12,10 +12,10 @@
                     <enso-uploader is-small
                         is-rounded
                         :compact="compact"
-                        :params="{ documentable_type: type, documentable_id: id }"
+                        :params="params"
                         :url="uploadLink"
                         multiple
-                        v-if="uploadLink"
+                        v-if="!disableUpload && uploadLink"
                         @upload-successful="fetch();"/>
                 </p>
                 <p class="control has-icons-left has-icons-right is-expanded">
@@ -96,6 +96,10 @@ export default {
             type: Boolean,
             default: false,
         },
+        disableUpload: {
+            type: Boolean,
+            default: true,
+        },
     },
 
     data: () => ({
@@ -105,6 +109,9 @@ export default {
     }),
 
     computed: {
+        params() {
+            return { documentable_type: this.type, documentable_id: this.id };
+        },
         filteredDocuments() {
             const query = this.internalQuery.toLowerCase();
 
