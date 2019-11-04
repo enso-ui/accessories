@@ -98,7 +98,7 @@ export default {
         },
         disableUpload: {
             type: Boolean,
-            default: true,
+            default: false,
         },
     },
 
