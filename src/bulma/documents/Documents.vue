@@ -47,7 +47,7 @@
         </slot>
         <div class="has-margin-top-large"
             :class="{'columns is-mobile is-multiline': !compact}">
-            <div v-for="(doc, index) in filteredDocuments"
+            <div v-for="(doc, index) in documents"
                 :key="doc.id"
                 :class="{ 'column is-half-touch is-half-desktop is-one-third-widescreen': !compact }">
                 <component :is="component"
@@ -65,6 +65,7 @@ import { faPlus, faSync, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { EnsoUploader } from '@enso-ui/uploader/bulma';
 import File from '@enso-ui/files/src/bulma/pages/files/components/File.vue';
 import Document from './Document.vue';
+import debounce from 'lodash/debounce';
 
 library.add(faPlus, faSync, faSearch);
 
@@ -110,17 +111,14 @@ export default {
 
     computed: {
         params() {
-            return { documentable_type: this.type, documentable_id: this.id };
-        },
-        filteredDocuments() {
-            const query = this.internalQuery.toLowerCase();
-
-            return query
-                ? this.documents.filter(({ file }) => file.name.toLowerCase().indexOf(query) > -1)
-                : this.documents;
+            return {
+                documentable_type: this.type,
+                documentable_id: this.id,
+                query: this.internalQuery,
+            };
         },
         count() {
-            return this.filteredDocuments.length;
+            return this.documents.length;
         },
         uploadLink() {
             return this.canAccess('core.documents.store')
@@ -138,10 +136,14 @@ export default {
         query() {
             this.internalQuery = this.query;
         },
+        internalQuery() {
+            this.fetch();
+        },
     },
 
     created() {
         this.fetch();
+        this.fetch = debounce(this.fetch, 150);
     },
 
     methods: {
@@ -149,7 +151,7 @@ export default {
             this.loading = true;
 
             axios.get(this.route('core.documents.index'), {
-                params: { documentable_type: this.type, documentable_id: this.id },
+                params: this.params,
             }).then(({ data }) => {
                 this.documents = data;
                 this.loading = false;
