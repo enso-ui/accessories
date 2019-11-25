@@ -143,7 +143,7 @@ export default {
 
     created() {
         this.fetch();
-        this.fetch = debounce(this.fetch, 150);
+        this.fetch = debounce(this.fetch, 300);
     },
 
     methods: {
