@@ -48,7 +48,7 @@
                 v-for="(address, index) in filteredAddresses"
                 :key="index">
                 <address-card :address="address"
-                    @set-default="setDefault(address)"
+                    @make-default="makeDefault(address)"
                     @edit="edit(address)"
                     @delete="destroy(address, index)">
                     <template v-slot:address
@@ -161,10 +161,10 @@ export default {
         create() {
             this.path = this.route('core.addresses.create', this.params);
         },
-        setDefault(address) {
+        makeDefault(address) {
             this.loading = true;
 
-            axios.patch(this.route('core.addresses.setDefault', address.id))
+            axios.patch(this.route('core.addresses.makeDefault', address.id))
                 .then(() => this.fetch())
                 .catch(this.errorHandler);
         },

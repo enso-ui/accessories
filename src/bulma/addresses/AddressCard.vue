@@ -83,7 +83,7 @@
                             </span>
                         </a>
                         <a class="button is-naked is-small"
-                            @click="$emit('set-default')">
+                            @click="$emit('make-default')">
                             <span class="icon">
                                 <fa icon="anchor"/>
                             </span>
