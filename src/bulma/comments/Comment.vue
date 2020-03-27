@@ -138,11 +138,11 @@ export default {
 
     computed: {
         ...mapState(['meta']),
-        ...mapGetters(['avatarLink']),
+        ...mapGetters(['user']),
         avatar() {
-            return this.isNew
-                ? this.avatarLink
-                : this.route('core.avatars.show', this.comment.owner.avatarId);
+            const avatarId = this.isNew ? this.user.avatar.id : this.comment.owner.avatarId;
+
+            return this.route('core.avatars.show', avatarId);
         },
         highlightTaggedUsers() {
             let { body } = this.comment;
