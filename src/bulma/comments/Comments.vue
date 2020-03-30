@@ -1,5 +1,5 @@
 <template>
-    <div class="wrapper">
+    <div class="comments-wrapper">
         <div class="field is-grouped">
             <slot name="controls"
                 :create="create"
@@ -226,7 +226,7 @@ export default {
 </script>
 
 <style lang="scss">
-    .wrapper .comments {
+    .comments-wrapper .comments {
         max-height: 500px;
         overflow-y: auto;
     }

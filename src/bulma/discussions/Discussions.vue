@@ -1,5 +1,5 @@
 <template>
-    <div class="wrapper">
+    <div class="discussions-wrapper">
         <inputor class="raises-on-hover animated fadeIn"
             :message="discussion"
             placeholder="Share your idea..."
@@ -181,7 +181,7 @@ export default {
 </script>
 
 <style lang="scss">
-    .wrapper {
+    .discussions-wrapper {
         .header {
             border-bottom: 2px solid black;
             margin-bottom: 2rem;
