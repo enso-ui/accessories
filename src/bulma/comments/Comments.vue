@@ -1,5 +1,5 @@
 <template>
-    <div class="comments-wrapper">
+    <div class="wrapper">
         <div class="field is-grouped">
             <slot name="controls"
                 :create="create"
@@ -43,7 +43,7 @@
                 </p>
             </slot>
         </div>
-        <div class="has-margin-top-large">
+        <div class="comments has-padding-small">
             <comment v-if="comment"
                 :id="id"
                 is-new
@@ -156,10 +156,7 @@ export default {
             return {
                 body: '',
                 taggedUsers: [],
-                owner: {
-                    avatarId: this.user.avatar.id,
-                    name: this.user.name,
-                },
+                owner: this.user,
             };
         },
         create() {
@@ -227,3 +224,10 @@ export default {
     },
 };
 </script>
+
+<style lang="scss">
+    .wrapper .comments {
+        max-height: 500px;
+        overflow-y: auto;
+    }
+</style>
