@@ -113,7 +113,7 @@ export default {
 
             return query
                 ? this.comments.filter(({ body, owner }) => body.toLowerCase().indexOf(query) > -1
-                    || owner.name.toLowerCase().indexOf(query) > -1)
+                    || owner.person.name.toLowerCase().indexOf(query) > -1)
                 : this.comments;
         },
         count() {
