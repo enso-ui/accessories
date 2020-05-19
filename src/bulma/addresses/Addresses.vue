@@ -18,15 +18,14 @@
                 </p>
                 <p class="control has-icons-left has-icons-right is-expanded">
                     <input class="input is-rounded is-small"
-                        type="text"
                         v-model="internalQuery"
                         :placeholder="i18n('Filter')">
                     <span class="icon is-small is-left">
                         <fa icon="search"/>
                     </span>
                     <span class="icon is-small is-right clear-button"
-                        v-if="internalQuery"
-                        @click="internalQuery = ''">
+                        @click="internalQuery = ''"
+                        v-if="internalQuery">
                         <a class="delete is-small"/>
                     </span>
                 </p>
@@ -48,29 +47,17 @@
                 v-for="(address, index) in filteredAddresses"
                 :key="index">
                 <address-card :address="address"
-                    @set-default="setDefault(address)"
+                    @make-default="makeDefault(address)"
                     @edit="edit(address)"
-                    @delete="destroy(address, index)">
-                    <template v-slot:address
-                        :address="address">
-                        <slot name="address"
-                            :address="address"/>
-                    </template>
-                </address-card>
+                    @delete="destroy(address, index)"/>
             </div>
         </div>
         <address-form :path="path"
-            @ready="setFields()"
-            @close="reset();"
-            @submit="fetch(); reset();"
-            ref="form"
-            v-if="path">
-            <template v-for="field in customFields"
-                v-slot:[field.name]="props">
-                <slot :name="field.name"
-                    v-bind="props"/>
-            </template>
-        </address-form>
+            :id="id"
+            :type="type"
+            @close="path = null"
+            @submit="fetch(); path = null;"
+            v-if="path"/>
     </div>
 </template>
 
@@ -109,7 +96,6 @@ export default {
         addresses: [],
         path: null,
         internalQuery: '',
-        customFields: [],
     }),
 
     computed: {
@@ -161,10 +147,10 @@ export default {
         create() {
             this.path = this.route('core.addresses.create', this.params);
         },
-        setDefault(address) {
+        makeDefault(address) {
             this.loading = true;
 
-            axios.patch(this.route('core.addresses.setDefault', address.id))
+            axios.patch(this.route('core.addresses.makeDefault', address.id))
                 .then(() => this.fetch())
                 .catch(this.errorHandler);
         },
@@ -177,16 +163,6 @@ export default {
                     this.$emit('update');
                     this.loading = false;
                 }).catch(this.errorHandler);
-        },
-        setFields() {
-            this.$refs.form.field('addressable_type').value = this.type;
-            this.$refs.form.field('addressable_id').value = this.id;
-            this.customFields = this.$refs.form.customFields;
-            this.$emit('form-loaded');
-        },
-        reset() {
-            this.path = null;
-            this.customFields = [];
         },
     },
 };

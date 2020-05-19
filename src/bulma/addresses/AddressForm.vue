@@ -3,15 +3,30 @@
         portal="address-form"
         v-on="$listeners">
         <enso-form class="box has-background-light"
+            :params="params"
+            :key="key"
             v-bind="$attrs"
             v-on="$listeners"
-            @ready="ready = true"
+            @ready="setFields"
             disable-state
             ref="form">
-            <template v-for="customField in customFields"
-                v-slot:[customField.name]="props">
-                <slot :name="customField.name"
-                    v-bind="props"/>
+            <template v-slot:country_id="props">
+                <form-field v-bind="props"
+                    @input="rerender"/>
+            </template>
+            <template v-slot:region_id="props">
+                <form-field v-bind="props"
+                    @input="
+                        localityParams.region_id = $event;
+                        props.errors.clear(props.field.name);
+                    "/>
+            </template>
+            <template v-slot:locality_id="props">
+                <form-field v-bind="props"
+                    :params="localityParams"
+                    @input="
+                        props.errors.clear(props.field.name)
+                    "/>
             </template>
         </enso-form>
     </modal>
@@ -22,51 +37,50 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { faLocationArrow } from '@fortawesome/free-solid-svg-icons';
 import { Modal } from '@enso-ui/modal/bulma';
 import { EnsoForm } from '@enso-ui/forms/bulma';
+import { FormField } from '@enso-ui/forms/bulma';
 
 library.add(faLocationArrow);
 
 export default {
     name: 'AddressForm',
 
-    components: { Modal, EnsoForm },
+    components: { Modal, EnsoForm, FormField },
 
-    data: () => ({
-        ready: false,
-    }),
-
-    computed: {
-        customFields() {
-            return this.ready
-                ? this.$refs.form.customFields
-                : [];
+    props: {
+        id: {
+            type: [String, Number],
+            required: true,
+        },
+        type: {
+            type: String,
+            default: null,
         },
     },
 
-    methods: {
-        field(field) {
-            return this.ready
-                ? this.$refs.form.field(field)
-                : null;
+    data: () => ({
+        key: 1,
+        form: null,
+        params: {
+            countryId: null,
         },
-        param(param) {
-            return this.ready
-                ? this.$refs.form.param(param)
-                : null;
+        localityParams: {
+            region_id: null,
+        },
+    }),
+
+    methods: {
+        rerender(countryId) {
+            this.params.countryId = countryId;
+            this.key++;
+        },
+        setFields({ form }) {
+            this.form = form;
+            this.form.field('addressable_id').value = this.id;
+            this.form.field('addressable_type').value = this.type;
+            this.localityParams.region_id = this.form.field('region_id').value;
+            this.$emit('form-loaded');
         },
     },
 };
 
 </script>
-<style lang="scss">
-    @media screen and (min-width: 1024px) {
-        .address-form .modal-content {
-            width: 70%;
-        }
-    }
-
-    @media screen and (max-width: 1023px) {
-        .address-form .modal-content {
-            width: 95%;
-        }
-    }
-</style>

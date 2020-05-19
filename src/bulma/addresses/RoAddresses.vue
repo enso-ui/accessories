@@ -43,47 +43,18 @@
                 v-for="(address, index) in filteredAddresses"
                 :key="address.id">
                 <address-card :address="address"
-                    @set-default="setDefault(address)"
+                    @make-default="makeDefault(address)"
                     @edit="edit(address)"
                     @delete="destroy(address, index)">
                     <template v-slot:address="{ address }">
                         <p>
-                            <span v-if="address.streetType">
-                                {{ i18n(address.streetType) }}
-                            </span>
                             <span v-if="address.street">
                                 {{ address.street }}
-                            </span>
-                            <span v-if="address.number">
-                                <span>
-                                    {{ i18n('Number') }}
-                                </span>
-                                {{ address.number }}
-                            </span>
-                        </p>
-                        <p>
-                            <span v-if="address.building">
-                                {{ i18n(address.buildingType) }}: {{ address.building }},
-                            </span>
-                            <span v-if="address.entry">
-                                {{ i18n('Entry') }}: {{ address.entry }},
-                            </span>
-                            <span v-if="address.floor">
-                                {{ i18n('Floor') }}: {{ address.floor }},
-                            </span>
-                            <span v-if="address.apartment">
-                                {{ i18n('Apt') }}: {{ address.apartment }},
                             </span>
                         </p>
                         <p>
                             <span v-if="address.localityName">
                                 {{ address.localityName }},
-                            </span>
-                            <span v-if="address.neighbourhood">
-                                {{ address.neighbourhood }}
-                            </span>
-                            <span v-if="address.sector">
-                                {{ i18n('Sector') }}: {{ address.sector }}
                             </span>
                             <br>
                             <span v-if="address.postalArea">
@@ -110,10 +81,10 @@
             @submit="fetch(); reset();"
             ref="form"
             v-if="path">
-            <template v-slot:county_id="props">
+            <template v-slot:region_id="props">
                 <form-field v-bind="props"
                     @input="
-                        localityParams.county_id = $event;
+                        localityParams.region_id = $event;
                         props.errors.clear(props.field.name);
                     "/>
             </template>
@@ -121,13 +92,8 @@
                 <form-field v-bind="props"
                     :params="localityParams"
                     @input="
-                        props.errors.clear(props.field.name);
-                        sectors = props.field.value === bucharestId
+                        props.errors.clear(props.field.name)
                     "/>
-            </template>
-            <template v-slot:sector="props">
-                <form-field v-bind="props"
-                    @input="props.errors.clear(props.field.name)"/>
             </template>
         </address-form>
     </div>
@@ -172,10 +138,8 @@ export default {
         path: null,
         internalQuery: '',
         localityParams: {
-            county_id: null,
+            region_id: null,
         },
-        sectors: false,
-        bucharestId: null,
     }),
 
     computed: {
@@ -201,14 +165,6 @@ export default {
     watch: {
         count() {
             this.$emit('update');
-        },
-        sectors() {
-            if (!this.sectors) {
-                this.$refs.form.field('sector').value = null;
-                this.$refs.form.field('sector').meta.readonly = true;
-            } else {
-                this.$refs.form.field('sector').meta.readonly = false;
-            }
         },
         query() {
             this.internalQuery = this.query;
@@ -236,10 +192,10 @@ export default {
         create() {
             this.path = this.route('core.addresses.create', this.params);
         },
-        setDefault(address) {
+        makeDefault(address) {
             this.loading = true;
 
-            axios.patch(this.route('core.addresses.setDefault', address.id))
+            axios.patch(this.route('core.addresses.makeDefault', address.id))
                 .then(() => this.fetch())
                 .catch(this.errorHandler);
         },
@@ -255,8 +211,7 @@ export default {
         setFields() {
             this.$refs.form.field('addressable_type').value = this.type;
             this.$refs.form.field('addressable_id').value = this.id;
-            this.localityParams.county_id = this.$refs.form.field('county_id').value;
-            this.bucharestId = this.$refs.form.param('bucharestId');
+            this.localityParams.region_id = this.$refs.form.field('region_id').value;
             this.$emit('form-loaded');
         },
         reset() {

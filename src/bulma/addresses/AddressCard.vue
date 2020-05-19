@@ -9,71 +9,34 @@
                     v-if="address.isDefault">
                     <fa icon="anchor"/>
                 </span>
-                <slot name="address"
-                    :address="address">
-                    <p>
-                        <strong v-if="address.number">
-                            {{ address.number }}
-                        </strong>
-                        <strong>
-                            {{ address.street }}
-                        </strong>
-                        <strong v-if="address.streetType">
-                            {{ i18n(address.streetType) }}
-                        </strong>
-                    </p>
-                    <p>
-                        <strong v-if="address.building">
-                            <span class="has-text-grey">
-                                {{ i18n(address.buildingType) }}
-                            </span>
-                            {{ address.building }}
-                        </strong>
-                    </p>
-                    <p>
-                        <strong v-if="address.entry">
-                            <span class="has-text-grey">
-                                {{ i18n('Entry') }}
-                            </span>
-                            {{ address.entry }}
-                        </strong>
-                        <strong v-if="address.floor">
-                            <span class="has-text-grey">
-                                {{ i18n('Floor') }}
-                            </span>
-                            {{ address.floor }}
-                        </strong>
-                        <strong v-if="address.apartment">
-                            <span class="has-text-grey">
-                                {{ i18n('Apt') }}
-                            </span>
-                            {{ address.apartment }}
-                        </strong>
-                    </p>
-                    <p>
-                        <strong v-if="address.subAdministrativeArea">
-                            {{ address.subAdministrativeArea }}
-                        </strong>
-                        <strong v-if="address.city">
-                            {{ address.city }}
-                        </strong>
-                        <br>
-                        <strong v-if="address.postalArea">
-                            {{ address.postalArea }}
-                        </strong>
-                        <strong v-if="address.administrativeArea">
-                            {{ address.administrativeArea }}
-                        </strong>
-                    </p>
-                </slot>
+                <p>
+                    {{ address.street }}
+                </p>
+                <p v-if="address.additional">
+                    {{ address.additional }}
+                </p>
+                <p>
+                    <span v-if="address.locality">
+                        {{ address.locality }}
+                    </span>
+                    <span v-if="address.city">
+                        {{ address.city }}
+                    </span>
+                    <span v-if="address.region">
+                        {{ address.region }}
+                    </span>
+                </p>
+                <p v-if="address.postalArea">
+                    {{ i18n('Postal Area') }}  {{ address.postalArea }}
+                </p>
                 <p>
                     <span class="icon is-small">
                         <fa icon="globe"
                             size="xs"/>
                     </span>
-                    <strong>
+                    <span>
                         {{ address.country }}
-                    </strong>
+                    </span>
                     <span class="is-pulled-right is-flex"
                         v-if="controls">
                         <a class="button is-naked is-small"
@@ -83,7 +46,7 @@
                             </span>
                         </a>
                         <a class="button is-naked is-small"
-                            @click="$emit('set-default')">
+                            @click="$emit('make-default')">
                             <span class="icon">
                                 <fa icon="anchor"/>
                             </span>
@@ -100,9 +63,8 @@
                         </confirmation>
                     </span>
                 </p>
-                <p>
-                    <span class="icon is-small"
-                        v-if="address.obs">
+                <p v-if="address.obs">
+                    <span class="icon is-small">
                         <fa icon="sticky-note"
                             size="xs"/>
                     </span>
@@ -149,7 +111,7 @@ export default {
 <style lang="scss">
     .address {
         .media .media-content {
-            min-height: 148px;
+            min-height: 144px;
         }
     }
 </style>
