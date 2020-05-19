@@ -80,7 +80,7 @@ class Mention {
     }
 
     fetcher() {
-        axios.get(route('administration.users.options'), {
+        axios.get(route('core.comments.users'), {
             params: { query: this.query, limit: 10 },
         }).then(({ data }) => this.renderList(data));
     }

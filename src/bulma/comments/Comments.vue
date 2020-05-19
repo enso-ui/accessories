@@ -43,7 +43,7 @@
                 </p>
             </slot>
         </div>
-        <div class="has-margin-top-large">
+        <div class="comments has-padding-small">
             <comment v-if="comment"
                 :id="id"
                 is-new
@@ -113,7 +113,7 @@ export default {
 
             return query
                 ? this.comments.filter(({ body, owner }) => body.toLowerCase().indexOf(query) > -1
-                    || owner.name.toLowerCase().indexOf(query) > -1)
+                    || owner.person.name.toLowerCase().indexOf(query) > -1)
                 : this.comments;
         },
         count() {
@@ -156,10 +156,7 @@ export default {
             return {
                 body: '',
                 taggedUsers: [],
-                owner: {
-                    avatarId: this.user.avatar.id,
-                    name: this.user.name,
-                },
+                owner: this.user,
             };
         },
         create() {
@@ -227,3 +224,10 @@ export default {
     },
 };
 </script>
+
+<style lang="scss">
+    .comments-wrapper .comments {
+        max-height: 500px;
+        overflow-y: auto;
+    }
+</style>

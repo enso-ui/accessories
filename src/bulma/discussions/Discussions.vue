@@ -18,7 +18,7 @@
             @back="discussion = null; fetch()"
             @delete="destroy()"
             v-else-if="discussion"/>
-        <div v-else>
+        <template v-else>
             <div class="field is-grouped">
                 <p class="control">
                     <a class="button is-rounded is-small is-bold is-info"
@@ -57,15 +57,17 @@
                     </a>
                 </p>
             </div>
-            <div class="box has-background-light raises-on-hover"
-                v-for="(topic, index) in filteredDiscussions"
-                :key="index">
-                <discussion-preview class="is-clickable"
-                    :discussion="topic"
-                    :last="index === discussions.length - 1"
-                    @click.native="discussion = topic"/>
+            <div class="discussions has-padding-small">
+                <div class="box has-background-light raises-on-hover"
+                    v-for="(topic, index) in filteredDiscussions"
+                    :key="index">
+                    <discussion-preview class="is-clickable"
+                        :discussion="topic"
+                        :last="index === discussions.length - 1"
+                        @click.native="discussion = topic"/>
+                </div>
             </div>
-        </div>
+        </template>
     </div>
 </template>
 
@@ -190,6 +192,11 @@ export default {
         .controls {
             display: flex;
             justify-content: center;
+        }
+
+        .discussions {
+            max-height: 500px;
+            overflow-y: auto;
         }
     }
 </style>

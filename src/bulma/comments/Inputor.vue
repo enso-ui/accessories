@@ -93,7 +93,7 @@ export default {
 
     methods: {
         fetch() {
-            axios.get(this.route('administration.users.options'), {
+            axios.get(this.route('core.comments.users'), {
                 params: { query: this.query, paginate: 6 },
             }).then(({ data }) => {
                 this.items = data

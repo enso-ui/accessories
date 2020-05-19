@@ -7,9 +7,8 @@ import Comments from '../src/bulma/comments/Comments.vue';
 import Discussions from '../src/bulma/discussions/Discussions.vue';
 import DocumentsCard from '../src/bulma/documents/DocumentsCard.vue';
 import Documents from '../src/bulma/documents/Documents.vue';
-import QuickView from '../src/bulma/QuickView.vue';
 
 export {
     Accessories, AddressesCard, Addresses, RoAddresses, CommentsCard,
-    Comments, Discussions, DocumentsCard, Documents, QuickView,
+    Comments, Discussions, DocumentsCard, Documents,
 };
