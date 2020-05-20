@@ -10,22 +10,22 @@
             @ready="setFields"
             disable-state
             ref="form">
-            <template v-slot:country_id="props">
-                <form-field v-bind="props"
+            <template v-slot:country_id="{ field }">
+                <form-field :field="field"
                     @input="rerender"/>
             </template>
-            <template v-slot:region_id="props">
-                <form-field v-bind="props"
+            <template v-slot:region_id="{ field, errors }">
+                <form-field :field="field"
                     @input="
                         localityParams.region_id = $event;
-                        props.errors.clear(props.field.name);
+                        errors.clear(field.name);
                     "/>
             </template>
-            <template v-slot:locality_id="props">
-                <form-field v-bind="props"
+            <template v-slot:locality_id="{ field, errors }">
+                <form-field :field="field"
                     :params="localityParams"
                     @input="
-                        props.errors.clear(props.field.name)
+                        errors.clear(field.name)
                     "/>
             </template>
         </enso-form>
