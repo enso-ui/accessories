@@ -26,8 +26,8 @@
                         {{ address.region }}
                     </span>
                 </p>
-                <p v-if="address.postalArea">
-                    {{ i18n('Postal Area') }}  {{ address.postalArea }}
+                <p v-if="address.postcode">
+                    {{ i18n('Postcode') }}  {{ address.postcode }}
                 </p>
                 <p>
                     <span class="icon is-small">
@@ -63,12 +63,12 @@
                         </confirmation>
                     </span>
                 </p>
-                <p v-if="address.obs">
+                <p v-if="address.notes">
                     <span class="icon is-small">
                         <fa icon="sticky-note"
                             size="xs"/>
                     </span>
-                    {{ address.obs }}
+                    {{ address.notes }}
                 </p>
             </div>
         </div>

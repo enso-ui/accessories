@@ -57,8 +57,8 @@
                                 {{ address.localityName }},
                             </span>
                             <br>
-                            <span v-if="address.postalArea">
-                                {{ address.postalArea }}
+                            <span v-if="address.postcode">
+                                {{ address.postcode }}
                             </span>
                         </p>
                         <p>
@@ -66,10 +66,10 @@
                                 <fa icon="globe"/>
                             </span>
                             {{ address.country }} <br>
-                            <span class="icon" v-if="address.obs">
+                            <span class="icon" v-if="address.notes">
                                 <fa icon="sticky-note"/>
                             </span>
-                            {{ address.obs }}
+                            {{ address.notes }}
                         </p>
                     </template>
                 </address-card>
