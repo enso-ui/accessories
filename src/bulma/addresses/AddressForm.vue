@@ -10,6 +10,20 @@
             @ready="setFields"
             disable-state
             ref="form">
+            <template v-slot:actions-left>
+                <a class="button is-warning"
+                   :class="{'loading': loading}"
+                    @click="localize"
+                    v-if="canAccess('core.addresses.localize')">
+                    <span class="is-hidden-mobile">
+                        {{ i18n('Localize') }}
+                    </span>
+                    <span class="icon">
+                        <fa icon="map-pin"/>
+                    </span>
+                    <span class="is-hidden-mobile"/>
+                </a>
+            </template>
             <template v-slot:country_id="{ field }">
                 <form-field :field="field"
                     @input="rerender"/>
@@ -34,12 +48,12 @@
 
 <script>
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faLocationArrow } from '@fortawesome/free-solid-svg-icons';
+import { faLocationArrow, faMapPin } from '@fortawesome/free-solid-svg-icons';
 import { Modal } from '@enso-ui/modal/bulma';
 import { EnsoForm } from '@enso-ui/forms/bulma';
 import { FormField } from '@enso-ui/forms/bulma';
 
-library.add(faLocationArrow);
+library.add(faLocationArrow, faMapPin);
 
 export default {
     name: 'AddressForm',
@@ -57,9 +71,12 @@ export default {
         },
     },
 
+    inject: ['canAccess', 'errorHandler', 'i18n', 'route'],
+
     data: () => ({
         key: 1,
         form: null,
+        loading: false,
         params: {
             countryId: null,
         },
@@ -79,6 +96,30 @@ export default {
             this.form.field('addressable_type').value = this.type;
             this.localityParams.region_id = this.form.field('region_id').value;
             this.$emit('form-loaded');
+        },
+        localize() {
+            this.loading = true;
+
+            const address = this.form.$data.state.data.routeParams.address;
+            axios.get(this.route('core.addresses.localize', address))
+                .then(({ data }) => {
+                    this.loading = false;
+
+                    const { lat, lng } = data;
+
+                    if (!lat && !lng) {
+                        this.$toastr.warning(this.i18n("Unable to determine the address' position"));
+
+                        return;
+                    }
+
+                    this.$refs.form.field('lat').value = lat;
+                    this.$refs.form.field('long').value = lng;
+                })
+                .catch(error => {
+                    this.loading = false;
+                    this.errorHandler(error);
+                });
         },
     },
 };
