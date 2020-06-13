@@ -145,7 +145,7 @@ export default {
         avatar() {
             return this.route(
                 'core.avatars.show',
-                this.discussion.owner.avatarId,
+                this.discussion.owner.avatar.id,
             );
         },
         edited() {

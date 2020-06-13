@@ -63,7 +63,7 @@ export default {
         avatar() {
             return this.route(
                 'core.avatars.show',
-                this.discussion.owner.avatarId || 'null',
+                this.discussion.owner.avatar.id || 'null',
             );
         },
     },

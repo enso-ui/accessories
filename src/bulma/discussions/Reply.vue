@@ -90,7 +90,7 @@ export default {
         avatar() {
             return this.route(
                 'core.avatars.show',
-                this.reply.owner.avatarId,
+                this.reply.owner.avatar.id,
             );
         },
         edited() {

@@ -7,7 +7,7 @@
             :key="reaction.id"
             v-tooltip="reaction.owner.name">
             <img class="is-rounded"
-                :src="avatar(reaction.owner.avatarId)">
+                :src="avatar(reaction.owner.avatar.id)">
         </figure>
     </div>
 </template>
