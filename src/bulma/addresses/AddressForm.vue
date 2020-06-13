@@ -99,15 +99,9 @@ export default {
 
             axios.get(this.route('core.addresses.localize', address))
                 .then(({ data }) => {
-                    const { lat, lng } = data;
-
-                    if (!lat && !lng) {
-                        this.$toastr.warning(this.i18n("Unable to determine the address' position"));
-                    } else {
-                        this.$refs.form.field('lat').value = lat;
-                        this.$refs.form.field('long').value = lng;
-                    }
-
+                    const { lat, long } = data;
+                    this.$refs.form.field('lat').value = lat;
+                    this.$refs.form.field('long').value = long;
                     this.loading = false;
                 }).catch((error) => {
                     this.loading = false;
