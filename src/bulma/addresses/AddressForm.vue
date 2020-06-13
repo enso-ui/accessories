@@ -11,7 +11,7 @@
             disable-state
             ref="form">
             <template v-slot:actions-left
-                v-if="canAccess('core.addresses.localize')">
+                v-if="canLocalize">
                 <a class="button is-warning"
                    :class="{'loading': loading}"
                     @click="localize">
@@ -50,8 +50,8 @@
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faLocationArrow, faMapPin } from '@fortawesome/free-solid-svg-icons';
 import { Modal } from '@enso-ui/modal/bulma';
-import { EnsoForm } from '@enso-ui/forms/bulma';
-import { FormField } from '@enso-ui/forms/bulma';
+import { EnsoForm, FormField } from '@enso-ui/forms/bulma';
+
 
 library.add(faLocationArrow, faMapPin);
 
@@ -85,10 +85,17 @@ export default {
         },
     }),
 
+    computed: {
+        canLocalize() {
+            return this.form && this.form.routeParam('address')
+                && this.canAccess('core.addresses.localize');
+        },
+    },
+
     methods: {
         localize() {
             this.loading = true;
-            const address = this.form.routeParams('address');
+            const address = this.form.routeParam('address');
 
             axios.get(this.route('core.addresses.localize', address))
                 .then(({ data }) => {
@@ -100,9 +107,9 @@ export default {
                         this.$refs.form.field('lat').value = lat;
                         this.$refs.form.field('long').value = lng;
                     }
-                    
+
                     this.loading = false;
-                }).catch(error => {
+                }).catch((error) => {
                     this.loading = false;
                     this.errorHandler(error);
                 });
