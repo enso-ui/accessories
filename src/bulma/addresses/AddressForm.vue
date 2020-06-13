@@ -10,11 +10,11 @@
             @ready="setFields"
             disable-state
             ref="form">
-            <template v-slot:actions-left>
+            <template v-slot:actions-left
+                v-if="canAccess('core.addresses.localize')">
                 <a class="button is-warning"
                    :class="{'loading': loading}"
-                    @click="localize"
-                    v-if="canAccess('core.addresses.localize')">
+                    @click="localize">
                     <span class="is-hidden-mobile">
                         {{ i18n('Localize') }}
                     </span>
