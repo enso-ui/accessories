@@ -86,6 +86,27 @@ export default {
     }),
 
     methods: {
+        localize() {
+            this.loading = true;
+            const address = this.form.routeParams('address');
+
+            axios.get(this.route('core.addresses.localize', address))
+                .then(({ data }) => {
+                    const { lat, lng } = data;
+
+                    if (!lat && !lng) {
+                        this.$toastr.warning(this.i18n("Unable to determine the address' position"));
+                    } else {
+                        this.$refs.form.field('lat').value = lat;
+                        this.$refs.form.field('long').value = lng;
+                    }
+                    
+                    this.loading = false;
+                }).catch(error => {
+                    this.loading = false;
+                    this.errorHandler(error);
+                });
+        },
         rerender(countryId) {
             this.params.countryId = countryId;
             this.key++;
@@ -97,31 +118,6 @@ export default {
             this.localityParams.region_id = this.form.field('region_id').value;
             this.$emit('form-loaded');
         },
-        localize() {
-            this.loading = true;
-
-            const address = this.form.$data.state.data.routeParams.address;
-            axios.get(this.route('core.addresses.localize', address))
-                .then(({ data }) => {
-                    this.loading = false;
-
-                    const { lat, lng } = data;
-
-                    if (!lat && !lng) {
-                        this.$toastr.warning(this.i18n("Unable to determine the address' position"));
-
-                        return;
-                    }
-
-                    this.$refs.form.field('lat').value = lat;
-                    this.$refs.form.field('long').value = lng;
-                })
-                .catch(error => {
-                    this.loading = false;
-                    this.errorHandler(error);
-                });
-        },
     },
 };
-
 </script>
