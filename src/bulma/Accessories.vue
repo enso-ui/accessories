@@ -1,6 +1,6 @@
 <template>
     <tabs v-on="$listeners">
-        <template v-slot:label="{ tab }">
+        <template #label="{ tab }">
             <span class="icon is-small"
                 v-if="icons">
                 <fa :icon="tab"/>
