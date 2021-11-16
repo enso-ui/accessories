@@ -1,5 +1,5 @@
 <template>
-    <tabs v-on="$listeners">
+    <tabs>
         <template #label="{ tab }">
             <span class="icon is-small"
                 v-if="icons">
