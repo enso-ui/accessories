@@ -18,12 +18,13 @@
 </template>
 
 <script>
+import { FontAwesomeIcon as Fa } from '@fortawesome/vue-fontawesome';
 import { EnsoTabs as Tabs } from '@enso-ui/tabs/bulma';
 
 export default {
     name: 'Accessories',
 
-    components: { Tabs },
+    components: { Fa, Tabs },
 
     inject: ['i18n'],
 
