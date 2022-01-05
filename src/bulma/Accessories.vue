@@ -41,8 +41,7 @@ export default {
 
     methods: {
         has(tab) {
-            return Object.prototype.hasOwnProperty
-                .call(this.count, tab);
+            return this.count[tab] !== undefined;
         },
     },
 };
