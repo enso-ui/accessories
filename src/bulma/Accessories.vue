@@ -1,5 +1,5 @@
 <template>
-    <tabs>
+    <tabs v-bind="$attrs">
         <template #label="{ tab }">
             <span class="icon is-small"
                 v-if="icons">
