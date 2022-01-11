@@ -1,6 +1,6 @@
 <template>
-    <tabs v-on="$listeners">
-        <template v-slot:label="{ tab }">
+    <tabs>
+        <template #label="{ tab }">
             <span class="icon is-small"
                 v-if="icons">
                 <fa :icon="tab"/>
@@ -18,12 +18,13 @@
 </template>
 
 <script>
+import { FontAwesomeIcon as Fa } from '@fortawesome/vue-fontawesome';
 import { EnsoTabs as Tabs } from '@enso-ui/tabs/bulma';
 
 export default {
     name: 'Accessories',
 
-    components: { Tabs },
+    components: { Fa, Tabs },
 
     inject: ['i18n'],
 
@@ -40,8 +41,7 @@ export default {
 
     methods: {
         has(tab) {
-            return Object.prototype.hasOwnProperty
-                .call(this.count, tab);
+            return this.count[tab] !== undefined;
         },
     },
 };
