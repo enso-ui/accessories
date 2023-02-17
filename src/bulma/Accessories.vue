@@ -9,7 +9,7 @@
                 {{ i18n(tab) }}
             </span>
             <span class="tag is-dark counter"
-                v-if="has(tab)">
+                v-if="has(tab) && count[tab] > 0">
                 {{ count[tab] }}
             </span>
         </template>
