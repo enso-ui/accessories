@@ -1,6 +1,6 @@
 {
   "name": "@enso-ui/accessories",
-  "version": "4.0.10",
+  "version": "5.0.0",
   "description": "Accessories",
   "main": "src/bulma/Accessories.vue",
   "repository": {
