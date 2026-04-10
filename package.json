@@ -2,10 +2,7 @@
   "name": "@enso-ui/accessories",
   "version": "4.0.10",
   "description": "Accessories",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "main": "src/bulma/Accessories.vue",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/@enso-ui/accessories.git"
@@ -15,26 +12,16 @@
     "vue"
   ],
   "author": "Adrian Ocneanu <aocneanu@gmail.com>",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/@enso-ui/accessories/issues"
   },
   "homepage": "https://github.com/@enso-ui/accessories#readme",
   "dependencies": {
-    "@enso-ui/tabs": "^2.0",
+    "@enso-ui/tabs": "^3.0.0",
+    "@fortawesome/fontawesome-svg-core": "^7.2.0",
     "bulma": "^0.9.0",
     "vue": "^3.0",
-    "@fortawesome/vue-fontawesome": "3.0.0-5"
-  },
-  "devDependencies": {
-    "@vue/cli-plugin-babel": "5.0.0-beta.6",
-    "@vue/cli-plugin-eslint": "5.0.0-beta.6",
-    "@vue/eslint-config-airbnb": "^5.0.0",
-    "autoprefixer": "^9.6.1",
-    "babel-eslint": "^10.0.1",
-    "cross-env": "^6.0.0",
-    "eslint": "^7.0.0",
-    "eslint-import-resolver-alias": "^1.1.2",
-    "eslint-plugin-vue": "^8.0.3"
+    "@fortawesome/vue-fontawesome": "3.1.3"
   }
 }
