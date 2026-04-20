@@ -1,11 +1,11 @@
 {
   "name": "@enso-ui/accessories",
   "version": "5.0.3",
-  "description": "Accessories",
+  "description": "Accessory tabs wrapper with translated labels and per-tab counters for Enso UI.",
   "main": "src/bulma/Accessories.vue",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/@enso-ui/accessories.git"
+    "url": "git+https://github.com/enso-ui/accessories.git"
   },
   "keywords": [
     "accessories",
@@ -14,9 +14,9 @@
   "author": "Adrian Ocneanu <aocneanu@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/@enso-ui/accessories/issues"
+    "url": "https://github.com/enso-ui/accessories/issues"
   },
-  "homepage": "https://github.com/@enso-ui/accessories#readme",
+  "homepage": "https://github.com/enso-ui/accessories#readme",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^7.2.0",
     "@fortawesome/vue-fontawesome": "3.1.3"
