@@ -1,6 +1,6 @@
 {
   "name": "@enso-ui/accessories",
-  "version": "5.0.3",
+  "version": "5.0.4",
   "description": "Accessory tabs wrapper with translated labels and per-tab counters for Enso UI.",
   "main": "src/bulma/Accessories.vue",
   "repository": {

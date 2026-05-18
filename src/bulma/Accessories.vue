@@ -48,10 +48,16 @@ export default {
 </script>
 
 <style lang="scss">
+.enso-tabs {
     .tag.counter {
         margin-left: .25em;
         padding-left: .5em;
         padding-right: .5em;
-        height: 1.8em;
     }
+
+    .tabs.is-small .tag.counter {
+        height: 1.2em;
+        font-size: 0.8rem;
+    }
+}
 </style>
